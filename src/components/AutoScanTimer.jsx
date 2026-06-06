@@ -9,7 +9,8 @@ export default function AutoScanTimer({
   isAnalyzing,
   cameraReady,
   onEnabledChange,
-  onExpire
+  onExpire,
+  compact = false
 }) {
   const { t } = useLanguage();
   const deadlineRef = useRef(0);
@@ -67,6 +68,45 @@ export default function AutoScanTimer({
 
   const circumference = 2 * Math.PI * 44;
   const dashOffset = circumference * (1 - progress);
+
+  if (compact) {
+    return (
+      <div className="flex items-center gap-4 rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-4 py-3 shadow-sm">
+        <div className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-orange-600">
+            <TimerReset className="h-3.5 w-3.5 text-white" />
+          </div>
+          <span className="text-sm font-semibold text-slate-800">{t("autoScan")}</span>
+        </div>
+        
+        <div className="relative h-14 w-14">
+          <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="10" className="text-slate-200" />
+            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={dashOffset} className="text-amber-500 transition-all duration-300" />
+          </svg>
+          <div className="absolute inset-0 grid place-items-center">
+            <span className="text-base font-bold text-slate-900">{enabled ? remaining : 60}</span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          role="switch"
+          aria-checked={enabled}
+          className={`relative h-6 w-11 rounded-full transition ${enabled ? "bg-gradient-to-r from-teal-500 to-emerald-500" : "bg-slate-300"} ${!cameraReady || isAnalyzing ? "opacity-60" : ""}`}
+          onClick={() => onEnabledChange(!enabled)}
+          disabled={!cameraReady || isAnalyzing}
+        >
+          <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition ${enabled ? "left-[22px]" : "left-0.5"}`} />
+        </button>
+
+        <p className="flex-1 text-xs text-slate-500">
+          <RefreshCw className={`h-3 w-3 inline mr-1 ${enabled && !isAnalyzing ? "animate-spin" : ""}`} />
+          {cameraReady ? (enabled ? t("waitingNext") : t("readyForCapture")) : t("enableCamera")}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm p-5 shadow-sm">

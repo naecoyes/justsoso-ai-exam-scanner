@@ -28,6 +28,20 @@ export default function App() {
   const [error, setError] = useState("");
   const [autoScan, setAutoScan] = useState(false);
   const [cameraReady, setCameraReady] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
+
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight && window.innerWidth > 768);
+    };
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+    return () => {
+      window.removeEventListener("resize", checkOrientation);
+      window.removeEventListener("orientationchange", checkOrientation);
+    };
+  }, []);
 
   useEffect(() => {
     getHistoryItems().then(setHistory).catch(() => setHistory([]));
@@ -94,9 +108,87 @@ export default function App() {
     setLanguage(language === "zh" ? "en" : "zh");
   };
 
+  if (isLandscape) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
+        <div className="flex min-h-screen">
+          <div className="flex w-1/2 flex-col gap-4 p-4">
+            <header className="flex items-center justify-between rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-4 py-3 shadow-sm">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600">
+                  <BookOpen className="h-4 w-4 text-white" />
+                </div>
+                <h1 className="text-lg font-bold text-slate-900">{t("appTitle")}</h1>
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={toggleLanguage} className="rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50">
+                  <Globe className="h-3 w-3 inline mr-1" />
+                  {language === "zh" ? "EN" : "中"}
+                </button>
+                <div className="flex items-center gap-1 rounded-lg bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
+                  <Sparkles className="h-3 w-3" />
+                  MiMo
+                </div>
+              </div>
+            </header>
+
+            <CameraScanner
+              ref={cameraRef}
+              disabled={isAnalyzing}
+              onCapture={analyzePayload}
+              onUpload={analyzePayload}
+              onReadyChange={setCameraReady}
+            />
+
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl border border-rose-200/60 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-3">
+              <AutoScanTimer
+                enabled={autoScan}
+                isAnalyzing={isAnalyzing}
+                cameraReady={cameraReady}
+                onEnabledChange={setAutoScan}
+                onExpire={handleAutoScan}
+                compact
+              />
+            </div>
+          </div>
+
+          <div className="flex w-1/2 flex-col gap-4 overflow-y-auto border-l border-slate-200/60 bg-white/50 p-4">
+            <div className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
+              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3">
+                <Camera className="h-4 w-4 text-slate-500" />
+                <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
+                {isAnalyzing && (
+                  <span className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-amber-600">
+                    <Clock3 className="h-3 w-3 animate-pulse" />
+                    {t("analyzing")}
+                  </span>
+                )}
+              </div>
+              <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <QuestionBankManager />
+              <SettingsPanel />
+            </div>
+
+            <HistoryStrip items={history} onSelect={selectHistoryItem} />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1.2fr)_400px] lg:py-8">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:py-8">
         <section className="flex min-h-[620px] flex-col gap-5">
           <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-6 py-4 shadow-sm">
             <div className="flex items-center gap-3">
