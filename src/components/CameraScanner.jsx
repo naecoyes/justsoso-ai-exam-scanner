@@ -137,7 +137,7 @@ const CameraScanner = forwardRef(function CameraScanner(
               <div className="absolute inset-0 bg-slate-950/35" />
               <div
                 ref={frameRef}
-                className="absolute left-1/2 top-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
+                className="absolute left-1/2 top-1/2 w-[98%] -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
               >
                 <div className="absolute inset-0 rounded-lg border-2 border-white/80 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
                 <div className="absolute left-0 top-0 h-8 w-8 rounded-tl-lg border-l-4 border-t-4 border-amber-400" />
@@ -238,7 +238,7 @@ const CameraScanner = forwardRef(function CameraScanner(
             <div className="absolute inset-0 bg-slate-950/35" />
             <div
               ref={frameRef}
-              className="absolute left-1/2 top-1/2 w-[95%] max-w-5xl -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
+              className="absolute left-1/2 top-1/2 w-[98%] max-w-5xl -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
             >
               <div className="absolute inset-0 rounded-xl border-2 border-white/80 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
               <div className="absolute left-0 top-0 h-8 w-8 rounded-tl-xl border-l-4 border-t-4 border-amber-400" />

@@ -40,12 +40,12 @@ input {
 
 .landscape-viewfinder {
   aspect-ratio: 16 / 9;
-  max-height: 65%;
+  max-height: 75%;
 }
 
 .portrait-viewfinder {
   aspect-ratio: 16 / 9;
-  max-height: 45%;
+  max-height: 55%;
 }
 
 @media (min-width: 768px) {
