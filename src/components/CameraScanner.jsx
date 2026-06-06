@@ -4,7 +4,7 @@ import { captureVideoFrame, fileToImagePayload } from "../lib/imageCapture.js";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
 const CameraScanner = forwardRef(function CameraScanner(
-  { disabled, onCapture, onUpload, onReadyChange },
+  { disabled, onCapture, onUpload, onReadyChange, compact = false },
   ref
 ) {
   const { t } = useLanguage();
@@ -120,6 +120,108 @@ const CameraScanner = forwardRef(function CameraScanner(
   };
 
   const isReady = status === "ready";
+
+  if (compact) {
+    return (
+      <div className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
+        <div className="relative flex-1 min-h-0 bg-slate-950">
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            autoPlay
+            playsInline
+            muted
+          />
+          {isReady ? (
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute inset-0 bg-slate-950/35" />
+              <div
+                ref={frameRef}
+                className="absolute left-1/2 top-1/2 w-[92%] -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
+              >
+                <div className="absolute inset-0 rounded-lg border border-white/70 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
+                <div className="absolute left-0 top-0 h-6 w-6 rounded-tl-lg border-l-3 border-t-3 border-amber-400" />
+                <div className="absolute right-0 top-0 h-6 w-6 rounded-tr-lg border-r-3 border-t-3 border-amber-400" />
+                <div className="absolute bottom-0 left-0 h-6 w-6 rounded-bl-lg border-b-3 border-l-3 border-amber-400" />
+                <div className="absolute bottom-0 right-0 h-6 w-6 rounded-br-lg border-b-3 border-r-3 border-amber-400" />
+                <div className="absolute left-3 right-3 top-1/2 border-t border-dashed border-white/40" />
+                <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded bg-slate-950/70 px-2 py-0.5 text-[10px] font-semibold text-white">
+                  {t("viewfinder")}
+                </div>
+              </div>
+            </div>
+          ) : null}
+          {!isReady ? (
+            <div className="absolute inset-0 grid place-items-center px-4 text-center">
+              <div>
+                <Camera className="mx-auto h-8 w-8 text-slate-400" />
+                <p className="mt-2 text-sm font-medium text-white">{t("cameraNotStarted")}</p>
+              </div>
+            </div>
+          ) : null}
+          {disabled ? (
+            <div className="absolute inset-0 grid place-items-center bg-slate-950/60 text-sm font-medium text-white">
+              {t("analyzing")}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="flex items-center gap-2 border-t border-slate-200/60 p-2">
+          {isReady ? (
+            <button
+              type="button"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 px-3 text-xs font-semibold text-white shadow-sm transition hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={handleCaptureClick}
+              disabled={disabled}
+            >
+              <Camera className="h-3.5 w-3.5" />
+              {t("capture")}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 px-3 text-xs font-semibold text-white shadow-sm transition hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={startCamera}
+              disabled={disabled || status === "starting"}
+            >
+              <Play className="h-3.5 w-3.5" />
+              {status === "starting" ? t("starting") : t("startCamera")}
+            </button>
+          )}
+
+          {isReady ? (
+            <button
+              type="button"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-300 px-3 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+              onClick={stopCamera}
+            >
+              <Square className="h-3.5 w-3.5" />
+              {t("stop")}
+            </button>
+          ) : null}
+
+          <button
+            type="button"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-300 px-3 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+            onClick={() => fileRef.current?.click()}
+            disabled={disabled}
+          >
+            <FolderUp className="h-3.5 w-3.5" />
+            {t("uploadImage")}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <span className="flex-1 text-[10px] text-slate-400 truncate">{message}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">

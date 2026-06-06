@@ -58,6 +58,8 @@ const translations = {
     modelName: "模型名称（可选）",
     saveSettings: "保存设置",
     saved: "已保存",
+    quickMode: "快速解题",
+    quickModeDesc: "跳过引用和解析，直接给答案",
     
     // Errors
     analysisFailed: "分析失败，请重试",
@@ -128,6 +130,8 @@ const translations = {
     modelName: "Model Name (optional)",
     saveSettings: "Save Settings",
     saved: "Saved!",
+    quickMode: "Quick Mode",
+    quickModeDesc: "Skip references & explanation",
     
     // Errors
     analysisFailed: "Analysis failed, please try again",

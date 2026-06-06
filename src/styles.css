@@ -35,7 +35,7 @@ input {
 }
 
 .camera-stage.landscape-mode {
-  height: clamp(200px, 45vh, 400px);
+  height: clamp(180px, 35vh, 280px);
 }
 
 .landscape-viewfinder {
@@ -54,7 +54,7 @@ input {
   }
   
   .camera-stage.landscape-mode {
-    height: 480px;
+    height: 320px;
   }
 }
 
@@ -64,7 +64,7 @@ input {
   }
 
   .camera-stage.landscape-mode {
-    height: clamp(180px, 40vh, 320px);
+    height: clamp(160px, 30vh, 240px);
   }
 
   .landscape-viewfinder {
@@ -74,6 +74,6 @@ input {
 
 @media (orientation: landscape) {
   .camera-stage {
-    height: clamp(200px, 60vh, 450px);
+    height: clamp(180px, 45vh, 350px);
   }
 }

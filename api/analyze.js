@@ -21,6 +21,7 @@ export default async function handler(req, res) {
     const imageBase64 = sanitizeBase64(body?.imageBase64);
     const mimeType = sanitizeMimeType(body?.mimeType);
     const modelConfig = sanitizeModelConfig(body?.modelConfig);
+    const quickMode = body?.quickMode === true;
 
     if (!imageBase64) {
       return sendJson(res, 400, { error: "缺少 imageBase64" });
@@ -70,6 +71,31 @@ export default async function handler(req, res) {
         type: recognized.type || "",
         reason: recognized.reason || visibilityProblem,
         confidence: recognized.confidence ?? 0,
+        references: []
+      });
+    }
+
+    if (quickMode) {
+      const quickPayload = await client.complete([
+        {
+          role: "system",
+          content:
+            "你是快速答题助手。直接给出答案，不需要解析。只返回严格 JSON：{\"question\":\"题目\",\"answer\":\"答案\",\"explanation\":\"\",\"type\":\"题型\"}。"
+        },
+        {
+          role: "user",
+          content: [
+            { type: "text", text: `直接回答：\n${recognized.question}` },
+            { type: "image_url", image_url: { url: imageUrl } }
+          ]
+        }
+      ]);
+
+      const result = parseMimoPayload(quickPayload);
+      return sendJson(res, 200, {
+        ...result,
+        question: result.question || recognized.question,
+        type: result.type || recognized.type,
         references: []
       });
     }

@@ -29,6 +29,11 @@ export default function App() {
   const [autoScan, setAutoScan] = useState(false);
   const [cameraReady, setCameraReady] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
+  const [quickMode, setQuickMode] = useState(() => {
+    try {
+      return localStorage.getItem("app_quick_mode") === "true";
+    } catch { return false; }
+  });
 
   useEffect(() => {
     const checkOrientation = () => {
@@ -51,6 +56,13 @@ export default function App() {
     if (!cameraReady) setAutoScan(false);
   }, [cameraReady]);
 
+  const handleQuickModeChange = useCallback((value) => {
+    setQuickMode(value);
+    try {
+      localStorage.setItem("app_quick_mode", String(value));
+    } catch {}
+  }, []);
+
   const analyzePayload = useCallback(async (payload) => {
     if (!payload?.imageBase64) return;
 
@@ -68,7 +80,8 @@ export default function App() {
       const nextResult = await analyzeQuestionImage({
         imageBase64: payload.imageBase64,
         mimeType: payload.mimeType,
-        modelConfig
+        modelConfig,
+        quickMode
       });
 
       setResult(nextResult);
@@ -84,7 +97,7 @@ export default function App() {
     } finally {
       setIsAnalyzing(false);
     }
-  }, [t]);
+  }, [t, quickMode]);
 
   const handleAutoScan = useCallback(async () => {
     if (!cameraRef.current || isAnalyzing) return;
@@ -110,58 +123,59 @@ export default function App() {
 
   if (isLandscape) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
-        <div className="flex min-h-screen">
-          <div className="flex w-1/2 flex-col gap-4 p-4">
-            <header className="flex items-center justify-between rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-4 py-3 shadow-sm">
+      <main className="h-screen overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
+        <div className="flex h-full">
+          <div className="flex w-[45%] flex-col gap-3 p-3">
+            <header className="flex items-center justify-between rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-3 py-2 shadow-sm">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600">
-                  <BookOpen className="h-4 w-4 text-white" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600">
+                  <BookOpen className="h-3.5 w-3.5 text-white" />
                 </div>
-                <h1 className="text-lg font-bold text-slate-900">{t("appTitle")}</h1>
+                <h1 className="text-base font-bold text-slate-900">{t("appTitle")}</h1>
               </div>
-              <div className="flex items-center gap-2">
-                <button onClick={toggleLanguage} className="rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50">
-                  <Globe className="h-3 w-3 inline mr-1" />
+              <div className="flex items-center gap-1.5">
+                <button onClick={toggleLanguage} className="rounded-lg border border-slate-200 px-2 py-1 text-[10px] text-slate-600 hover:bg-slate-50">
+                  <Globe className="h-3 w-3 inline mr-0.5" />
                   {language === "zh" ? "EN" : "中"}
                 </button>
-                <div className="flex items-center gap-1 rounded-lg bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
+                <div className="flex items-center gap-1 rounded-lg bg-teal-50 px-2 py-1 text-[10px] font-semibold text-teal-700">
                   <Sparkles className="h-3 w-3" />
                   MiMo
                 </div>
               </div>
             </header>
 
-            <CameraScanner
-              ref={cameraRef}
-              disabled={isAnalyzing}
-              onCapture={analyzePayload}
-              onUpload={analyzePayload}
-              onReadyChange={setCameraReady}
-            />
+            <div className="flex-1 min-h-0">
+              <CameraScanner
+                ref={cameraRef}
+                disabled={isAnalyzing}
+                onCapture={analyzePayload}
+                onUpload={analyzePayload}
+                onReadyChange={setCameraReady}
+                compact
+              />
+            </div>
 
             {error && (
-              <div className="flex items-start gap-2 rounded-xl border border-rose-200/60 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <div className="flex items-start gap-2 rounded-xl border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs text-rose-700">
+                <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
-            <div className="flex items-center gap-3">
-              <AutoScanTimer
-                enabled={autoScan}
-                isAnalyzing={isAnalyzing}
-                cameraReady={cameraReady}
-                onEnabledChange={setAutoScan}
-                onExpire={handleAutoScan}
-                compact
-              />
-            </div>
+            <AutoScanTimer
+              enabled={autoScan}
+              isAnalyzing={isAnalyzing}
+              cameraReady={cameraReady}
+              onEnabledChange={setAutoScan}
+              onExpire={handleAutoScan}
+              compact
+            />
           </div>
 
-          <div className="flex w-1/2 flex-col gap-4 overflow-y-auto border-l border-slate-200/60 bg-white/50 p-4">
-            <div className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
-              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3">
+          <div className="flex w-[55%] flex-col gap-3 overflow-y-auto border-l border-slate-200/60 bg-white/50 p-3">
+            <div className="rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
+              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
                 <Camera className="h-4 w-4 text-slate-500" />
                 <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
                 {isAnalyzing && (
@@ -171,15 +185,15 @@ export default function App() {
                   </span>
                 )}
               </div>
-              <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} />
+              <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <QuestionBankManager />
-              <SettingsPanel />
+            <div className="grid grid-cols-2 gap-3">
+              <QuestionBankManager compact />
+              <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
             </div>
 
-            <HistoryStrip items={history} onSelect={selectHistoryItem} />
+            <HistoryStrip items={history} onSelect={selectHistoryItem} compact />
           </div>
         </div>
       </main>
@@ -261,7 +275,7 @@ export default function App() {
           </div>
 
           <QuestionBankManager />
-          <SettingsPanel />
+          <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} />
         </aside>
       </div>
     </main>

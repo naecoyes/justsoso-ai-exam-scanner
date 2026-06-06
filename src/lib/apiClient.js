@@ -4,7 +4,10 @@ export async function analyzeQuestionImage(payload) {
     headers: {
       "content-type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      ...payload,
+      quickMode: payload.quickMode || false
+    })
   });
 
   const body = await response.json().catch(() => ({}));

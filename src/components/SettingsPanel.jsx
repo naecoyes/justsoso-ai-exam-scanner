@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Settings, Save, Check } from "lucide-react";
+import { Settings, Save, Check, Zap } from "lucide-react";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
-export default function SettingsPanel() {
+export default function SettingsPanel({ quickMode, onQuickModeChange }) {
   const { t } = useLanguage();
   const [config, setConfig] = useState({ apiKey: "", baseUrl: "", model: "" });
   const [saved, setSaved] = useState(false);
@@ -34,6 +34,24 @@ export default function SettingsPanel() {
         <h2 className="text-sm font-semibold text-slate-800">{t("modelSettings")}</h2>
       </div>
       <div className="space-y-3.5">
+        <div className="flex items-center justify-between rounded-xl border border-amber-200/60 bg-amber-50/50 px-3.5 py-3">
+          <div className="flex items-center gap-2">
+            <Zap className="h-4 w-4 text-amber-600" />
+            <div>
+              <span className="text-sm font-medium text-slate-800">{t("quickMode")}</span>
+              <p className="text-[10px] text-slate-500">{t("quickModeDesc")}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={quickMode}
+            className={`relative h-6 w-11 rounded-full transition ${quickMode ? "bg-gradient-to-r from-amber-500 to-orange-500" : "bg-slate-300"}`}
+            onClick={() => onQuickModeChange(!quickMode)}
+          >
+            <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition ${quickMode ? "left-[22px]" : "left-0.5"}`} />
+          </button>
+        </div>
         <div>
           <label className="mb-1.5 block text-xs font-medium text-slate-600">{t("apiKey")}</label>
           <input
