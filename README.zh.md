@@ -1,6 +1,6 @@
 # AI 拍照答题
 
-<img src="public/icons/logo.png" width="80" height="80" alt="Logo">
+<img src="public/icons/logo.png" width="150" height="150" alt="Logo">
 
 [English](README.md)
 

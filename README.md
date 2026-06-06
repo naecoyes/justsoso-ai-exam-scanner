@@ -1,6 +1,6 @@
 # AI Exam Scanner
 
-<img src="public/icons/logo.png" width="80" height="80" alt="Logo">
+<img src="public/icons/logo.png" width="150" height="150" alt="Logo">
 
 [中文文档](README.zh.md)
 
