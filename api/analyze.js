@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       {
         role: "system",
         content:
-          "你是 OCR 识题助手。只判断图片中是否清楚可见考试题目，并识别题目、选项和题型。严禁根据常识、题库、上下文或猜测补全题目；黑屏、过暗、空白、纯色、模糊、没有完整题干时必须返回 isQuestionVisible:false。只返回严格 JSON：{\"question\":\"题目全文和选项；不可见时为空字符串\",\"type\":\"题型；不可见时为空字符串\",\"isQuestionVisible\":true,\"confidence\":0.0到1.0,\"reason\":\"可见或不可见原因\"}。"
+          "你是 OCR 识题答题助手。识别图片中的题目并直接给出答案。只返回严格 JSON：{\"question\":\"题目全文和选项\",\"answer\":\"最终答案\",\"explanation\":\"简要解析\",\"type\":\"题型\",\"isQuestionVisible\":true,\"confidence\":0.0到1.0}。黑屏、过暗、空白、模糊时返回 {\"isQuestionVisible\":false,\"question\":\"\",\"answer\":\"\",\"explanation\":\"\",\"type\":\"\",\"confidence\":0}。"
       },
       {
         role: "user",
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
           {
             type: "text",
             text:
-              "请只基于图片可见内容识别题目。若图片中没有清楚完整的题目，请返回 isQuestionVisible:false，question 为空，不要猜。"
+              "请识别图片中的题目并直接给出答案。"
           },
           { type: "image_url", image_url: { url: imageUrl } }
         ]
@@ -76,64 +76,49 @@ export default async function handler(req, res) {
     }
 
     if (quickMode) {
-      const quickPayload = await client.complete([
-        {
-          role: "system",
-          content:
-            "你是快速答题助手。直接给出答案，不需要解析。只返回严格 JSON：{\"question\":\"题目\",\"answer\":\"答案\",\"explanation\":\"\",\"type\":\"题型\"}。"
-        },
-        {
-          role: "user",
-          content: [
-            { type: "text", text: `直接回答：\n${recognized.question}` },
-            { type: "image_url", image_url: { url: imageUrl } }
-          ]
-        }
-      ]);
-
-      const result = parseMimoPayload(quickPayload);
       return sendJson(res, 200, {
-        ...result,
-        question: result.question || recognized.question,
-        type: result.type || recognized.type,
+        question: recognized.question || "",
+        answer: recognized.answer || "",
+        explanation: "",
+        type: recognized.type || "",
         references: []
       });
     }
 
-    const references = await getReferenceSnippets(recognized.question || recognized.rawText);
+    const references = await getReferenceSnippets(recognized.question || "");
     const referenceContext = formatReferencesForPrompt(references);
 
-    const finalPayload = await client.complete([
-      {
-        role: "system",
-        content:
-          "你是严谨的 CSA 312-39 备考答题助手。优先依据提供的备考资料片段作答；资料不足时再结合题目常识判断。只返回严格 JSON，不要 Markdown，不要额外文字。JSON schema: {\"question\":\"识别出的题目全文\",\"answer\":\"最终答案\",\"explanation\":\"解析，说明是否参考了备考资料\",\"type\":\"题型\"}。"
-      },
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: [
-              "请解答图片中的题目。",
-              "",
-              "已识别题目：",
-              recognized.question,
-              "",
-              referenceContext
-                ? `本地备考资料相关片段：\n${referenceContext}`
-                : "本地备考资料未命中高相关片段。"
-            ].join("\n")
-          },
-          { type: "image_url", image_url: { url: imageUrl } }
-        ]
-      }
-    ]);
+    let result = recognized;
+    if (referenceContext) {
+      const finalPayload = await client.complete([
+        {
+          role: "system",
+          content:
+            "你是严谨的备考答题助手。根据参考资料优化答案。只返回严格 JSON：{\"question\":\"题目\",\"answer\":\"最终答案\",\"explanation\":\"解析\",\"type\":\"题型\"}。"
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: [
+                "已识别题目：",
+                recognized.question,
+                "",
+                "参考资料：",
+                referenceContext
+              ].join("\n")
+            }
+          ]
+        }
+      ]);
+      result = parseMimoPayload(finalPayload);
+    }
 
-    const result = parseMimoPayload(finalPayload);
     return sendJson(res, 200, {
-      ...result,
       question: result.question || recognized.question,
+      answer: result.answer || recognized.answer,
+      explanation: result.explanation || recognized.explanation,
       type: result.type || recognized.type,
       references
     });
