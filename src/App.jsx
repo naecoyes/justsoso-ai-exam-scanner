@@ -221,10 +221,10 @@ export default function App() {
               </div>
             </div>
 
+            <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} />
             <QuestionBankManager />
             <QuestionList />
             <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} />
-            <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} />
           </div>
         </div>
       </main>
