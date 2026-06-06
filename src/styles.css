@@ -39,13 +39,13 @@ input {
 }
 
 .landscape-viewfinder {
-  aspect-ratio: 21 / 9;
-  max-height: 58%;
+  aspect-ratio: 16 / 9;
+  max-height: 65%;
 }
 
 .portrait-viewfinder {
-  aspect-ratio: 9 / 16;
-  max-height: 75%;
+  aspect-ratio: 16 / 9;
+  max-height: 45%;
 }
 
 @media (min-width: 768px) {
@@ -68,7 +68,7 @@ input {
   }
 
   .landscape-viewfinder {
-    width: 92%;
+    width: 96%;
   }
 }
 

@@ -137,15 +137,15 @@ const CameraScanner = forwardRef(function CameraScanner(
               <div className="absolute inset-0 bg-slate-950/35" />
               <div
                 ref={frameRef}
-                className="absolute left-1/2 top-1/2 w-[92%] -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
+                className="absolute left-1/2 top-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
               >
-                <div className="absolute inset-0 rounded-lg border border-white/70 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
-                <div className="absolute left-0 top-0 h-6 w-6 rounded-tl-lg border-l-3 border-t-3 border-amber-400" />
-                <div className="absolute right-0 top-0 h-6 w-6 rounded-tr-lg border-r-3 border-t-3 border-amber-400" />
-                <div className="absolute bottom-0 left-0 h-6 w-6 rounded-bl-lg border-b-3 border-l-3 border-amber-400" />
-                <div className="absolute bottom-0 right-0 h-6 w-6 rounded-br-lg border-b-3 border-r-3 border-amber-400" />
-                <div className="absolute left-3 right-3 top-1/2 border-t border-dashed border-white/40" />
-                <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded bg-slate-950/70 px-2 py-0.5 text-[10px] font-semibold text-white">
+                <div className="absolute inset-0 rounded-lg border-2 border-white/80 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
+                <div className="absolute left-0 top-0 h-8 w-8 rounded-tl-lg border-l-4 border-t-4 border-amber-400" />
+                <div className="absolute right-0 top-0 h-8 w-8 rounded-tr-lg border-r-4 border-t-4 border-amber-400" />
+                <div className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-lg border-b-4 border-l-4 border-amber-400" />
+                <div className="absolute bottom-0 right-0 h-8 w-8 rounded-br-lg border-b-4 border-r-4 border-amber-400" />
+                <div className="absolute left-4 right-4 top-1/2 border-t border-dashed border-white/50" />
+                <div className="absolute left-1/2 top-3 -translate-x-1/2 rounded-md bg-slate-950/80 px-3 py-1 text-xs font-semibold text-white">
                   {t("viewfinder")}
                 </div>
               </div>
@@ -238,20 +238,16 @@ const CameraScanner = forwardRef(function CameraScanner(
             <div className="absolute inset-0 bg-slate-950/35" />
             <div
               ref={frameRef}
-              className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
-                isLandscape 
-                  ? "w-[92%] max-w-5xl landscape-viewfinder" 
-                  : "w-[90%] max-w-4xl portrait-viewfinder"
-              }`}
+              className="absolute left-1/2 top-1/2 w-[95%] max-w-5xl -translate-x-1/2 -translate-y-1/2 landscape-viewfinder"
             >
-              <div className="absolute inset-0 rounded-xl border border-white/70 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
+              <div className="absolute inset-0 rounded-xl border-2 border-white/80 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
               <div className="absolute left-0 top-0 h-8 w-8 rounded-tl-xl border-l-4 border-t-4 border-amber-400" />
               <div className="absolute right-0 top-0 h-8 w-8 rounded-tr-xl border-r-4 border-t-4 border-amber-400" />
               <div className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-xl border-b-4 border-l-4 border-amber-400" />
               <div className="absolute bottom-0 right-0 h-8 w-8 rounded-br-xl border-b-4 border-r-4 border-amber-400" />
-              <div className="absolute left-4 right-4 top-1/2 border-t border-dashed border-white/40" />
-              <div className="absolute left-1/2 top-3 -translate-x-1/2 rounded-lg bg-slate-950/70 px-2.5 py-1 text-xs font-semibold text-white">
-                {isLandscape ? t("viewfinder") : t("portraitViewfinder")}
+              <div className="absolute left-4 right-4 top-1/2 border-t border-dashed border-white/50" />
+              <div className="absolute left-1/2 top-3 -translate-x-1/2 rounded-lg bg-slate-950/80 px-3 py-1 text-xs font-semibold text-white">
+                {t("viewfinder")}
               </div>
             </div>
           </div>
