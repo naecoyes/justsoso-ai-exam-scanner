@@ -194,16 +194,35 @@ export default function App() {
           </div>
 
           <div className="flex w-[55%] flex-col gap-3 overflow-y-auto border-l border-slate-200/60 bg-white/50 p-3">
-            <div className="rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
-              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
-                <Camera className="h-4 w-4 text-slate-500" />
-                <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
+            <div className="rounded-xl border border-emerald-200/60 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="h-4 w-4 text-emerald-600" />
+                <span className="text-xs font-semibold text-emerald-800">{t("answer")}</span>
                 {isAnalyzing && (
                   <span className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-amber-600">
                     <Clock3 className="h-3 w-3 animate-pulse" />
                     {t("analyzing")}
                   </span>
                 )}
+              </div>
+              {result.answer ? (
+                <div>
+                  <p className="text-2xl font-bold text-emerald-700">{result.answer}</p>
+                  {result.type && (
+                    <span className="mt-1 inline-block rounded-md bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                      {result.type}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm text-slate-400">{t("waitingForImage")}</p>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
+              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
+                <Camera className="h-4 w-4 text-slate-500" />
+                <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
               </div>
               <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
             </div>
