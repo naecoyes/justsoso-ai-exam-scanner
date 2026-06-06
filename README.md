@@ -1,5 +1,7 @@
 # AI 拍照答题 / AI Exam Scanner
 
+<img src="public/icons/app-icon.svg" width="80" height="80" alt="Logo">
+
 [English](#english) | [中文](#中文)
 
 ---
@@ -21,13 +23,11 @@ A modern AI-powered exam scanning tool designed for mobile browsers. Capture or 
 
 ### Screenshots
 
-#### Desktop
-![Main UI](public/screenshots/main_ui.png)
-![Settings](public/screenshots/settings.png)
-
-#### Mobile
-![Mobile Main](public/screenshots/mobile_main.jpg)
-![Mobile Scanning](public/screenshots/mobile_scanning.jpg)
+<p align="center">
+  <img src="public/screenshots/mobile_main.jpg" width="250" alt="Mobile Main">
+  &nbsp;&nbsp;
+  <img src="public/screenshots/mobile_scanning.jpg" width="250" alt="Mobile Scanning">
+</p>
 
 ### Quick Start
 
@@ -137,13 +137,11 @@ To trust the certificate on iPhone:
 
 ### 界面截图
 
-#### 桌面端
-![主界面](public/screenshots/main_ui.png)
-![设置界面](public/screenshots/settings.png)
-
-#### 手机端
-![手机主界面](public/screenshots/mobile_main.jpg)
-![手机扫描界面](public/screenshots/mobile_scanning.jpg)
+<p align="center">
+  <img src="public/screenshots/mobile_main.jpg" width="250" alt="手机主界面">
+  &nbsp;&nbsp;
+  <img src="public/screenshots/mobile_scanning.jpg" width="250" alt="手机扫描界面">
+</p>
 
 ### 快速开始
 
