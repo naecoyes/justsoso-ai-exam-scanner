@@ -6,7 +6,8 @@ import ResultPanel from "./components/ResultPanel.jsx";
 import HistoryStrip from "./components/HistoryStrip.jsx";
 import SettingsPanel from "./components/SettingsPanel.jsx";
 import QuestionBankManager from "./components/QuestionBankManager.jsx";
-import { analyzeQuestionImage } from "./lib/apiClient.js";
+import QuestionList from "./components/QuestionList.jsx";
+import { analyzeQuestionImage, saveQuestion } from "./lib/apiClient.js";
 import { addHistoryItem, getHistoryItems, clearHistory } from "./lib/historyDb.js";
 import { useLanguage } from "./lib/LanguageContext.jsx";
 
@@ -92,6 +93,16 @@ export default function App() {
         result: nextResult
       });
       setHistory(nextHistory);
+
+      if (nextResult.question && nextResult.answer) {
+        saveQuestion({
+          question: nextResult.question,
+          answer: nextResult.answer,
+          explanation: nextResult.explanation,
+          type: nextResult.type,
+          source: "scan"
+        }).catch(err => console.error("Auto-save question failed:", err));
+      }
     } catch (nextError) {
       setError(nextError instanceof Error ? nextError.message : t("analysisFailed"));
     } finally {
@@ -199,10 +210,13 @@ export default function App() {
 
             <div className="grid grid-cols-2 gap-3">
               <QuestionBankManager compact />
-              <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
+              <QuestionList compact />
             </div>
 
-            <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact />
+            <div className="grid grid-cols-2 gap-3">
+              <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
+              <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact />
+            </div>
           </div>
         </div>
       </main>
@@ -284,6 +298,7 @@ export default function App() {
           </div>
 
           <QuestionBankManager />
+          <QuestionList />
           <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} />
         </aside>
       </div>

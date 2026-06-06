@@ -24,6 +24,38 @@ export async function analyzeQuestionImage(payload) {
   };
 }
 
+export async function saveQuestion(questionData) {
+  const response = await fetch("/api/questions", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(questionData)
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || "Save failed");
+  return body;
+}
+
+export async function getQuestions() {
+  const response = await fetch("/api/questions");
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || "Failed to load questions");
+  return body.questions || [];
+}
+
+export async function deleteQuestion(id) {
+  const response = await fetch(`/api/questions?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || "Delete failed");
+  return body;
+}
+
+export async function clearQuestions() {
+  const response = await fetch("/api/questions", { method: "DELETE" });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || "Clear failed");
+  return body;
+}
+
 export async function getReferences() {
   const response = await fetch("/api/references");
   const body = await response.json().catch(() => ({}));

@@ -46,6 +46,14 @@ const translations = {
     unsupportedFormat: "支持格式：JSON、CSV、TXT、MD",
     delete: "删除",
     
+    // Question List
+    questionList: "问题列表",
+    noQuestions: "暂无问题记录",
+    autoSaveHint: "扫描题目后自动保存",
+    export: "导出",
+    clearAll: "清空",
+    confirmClear: "确定清空所有记录吗？",
+    
     // History
     history: "历史记录",
     noHistory: "暂无历史记录",
@@ -119,6 +127,14 @@ const translations = {
     noValidQuestions: "No valid questions found",
     unsupportedFormat: "Supported: JSON, CSV, TXT, MD",
     delete: "Delete",
+    
+    // Question List
+    questionList: "Question List",
+    noQuestions: "No questions recorded",
+    autoSaveHint: "Auto-saved after scanning",
+    export: "Export",
+    clearAll: "Clear All",
+    confirmClear: "Are you sure to clear all records?",
     
     // History
     history: "History",

@@ -21,7 +21,7 @@ COPY --from=build /app/dist ./dist
 COPY api ./api
 COPY Document ./Document
 COPY server.mjs ./server.mjs
-RUN mkdir -p ./user-documents
+RUN mkdir -p ./user-documents/questions
 
 EXPOSE 3000
 CMD ["node", "server.mjs"]
