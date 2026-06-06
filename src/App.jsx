@@ -7,7 +7,7 @@ import HistoryStrip from "./components/HistoryStrip.jsx";
 import SettingsPanel from "./components/SettingsPanel.jsx";
 import QuestionBankManager from "./components/QuestionBankManager.jsx";
 import { analyzeQuestionImage } from "./lib/apiClient.js";
-import { addHistoryItem, getHistoryItems } from "./lib/historyDb.js";
+import { addHistoryItem, getHistoryItems, clearHistory } from "./lib/historyDb.js";
 import { useLanguage } from "./lib/LanguageContext.jsx";
 
 const INITIAL_RESULT = {
@@ -117,6 +117,15 @@ export default function App() {
     setError("");
   };
 
+  const handleClearHistory = useCallback(async () => {
+    try {
+      await clearHistory();
+      setHistory([]);
+    } catch (e) {
+      console.error("Failed to clear history:", e);
+    }
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage(language === "zh" ? "en" : "zh");
   };
@@ -193,7 +202,7 @@ export default function App() {
               <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
             </div>
 
-            <HistoryStrip items={history} onSelect={selectHistoryItem} compact />
+            <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact />
           </div>
         </div>
       </main>
@@ -248,7 +257,7 @@ export default function App() {
             </div>
           ) : null}
 
-          <HistoryStrip items={history} onSelect={selectHistoryItem} />
+          <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} />
         </section>
 
         <aside className="flex flex-col gap-5">

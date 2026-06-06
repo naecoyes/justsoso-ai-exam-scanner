@@ -2,7 +2,6 @@ import { openDB } from "idb";
 
 const DB_NAME = "mimo-photo-solver";
 const STORE_NAME = "history";
-const MAX_HISTORY = 12;
 
 async function getDb() {
   return openDB(DB_NAME, 1, {
@@ -29,9 +28,20 @@ export async function addHistoryItem(item) {
 
   await db.put(STORE_NAME, nextItem);
   const items = sortItems(await db.getAll(STORE_NAME));
-  const overflow = items.slice(MAX_HISTORY);
-  await Promise.all(overflow.map((entry) => db.delete(STORE_NAME, entry.id)));
-  return items.slice(0, MAX_HISTORY);
+  return items;
+}
+
+export async function clearHistory() {
+  const db = await getDb();
+  await db.clear(STORE_NAME);
+  return [];
+}
+
+export async function deleteHistoryItem(id) {
+  const db = await getDb();
+  await db.delete(STORE_NAME, id);
+  const items = sortItems(await db.getAll(STORE_NAME));
+  return items;
 }
 
 function sortItems(items) {

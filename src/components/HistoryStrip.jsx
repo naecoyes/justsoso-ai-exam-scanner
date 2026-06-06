@@ -1,7 +1,7 @@
-import { History } from "lucide-react";
+import { History, Trash2 } from "lucide-react";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
-export default function HistoryStrip({ items, onSelect }) {
+export default function HistoryStrip({ items, onSelect, onClear }) {
   const { t, language } = useLanguage();
   
   return (
@@ -11,7 +11,16 @@ export default function HistoryStrip({ items, onSelect }) {
           <History className="h-3.5 w-3.5 text-white" aria-hidden="true" />
         </div>
         <h2 className="text-sm font-semibold text-slate-800">{t("history")}</h2>
-        <span className="ml-auto text-xs text-slate-400">{items.length}/12</span>
+        <span className="ml-auto text-xs text-slate-400">{items.length} {t("records")}</span>
+        {items.length > 0 && onClear && (
+          <button
+            onClick={onClear}
+            className="rounded-lg p-1.5 text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+            title={t("clearHistory")}
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
       {items.length ? (
         <div className="flex gap-3 overflow-x-auto pb-1">

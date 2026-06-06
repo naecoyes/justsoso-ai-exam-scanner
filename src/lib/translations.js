@@ -50,6 +50,8 @@ const translations = {
     history: "历史记录",
     noHistory: "暂无历史记录",
     noAnswerFound: "未找到答案",
+    records: "条记录",
+    clearHistory: "清除历史",
     
     // Settings
     modelSettings: "模型设置",
@@ -122,6 +124,8 @@ const translations = {
     history: "History",
     noHistory: "No history yet",
     noAnswerFound: "No answer",
+    records: "records",
+    clearHistory: "Clear History",
     
     // Settings
     modelSettings: "Model Settings",
