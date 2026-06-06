@@ -4,6 +4,7 @@ import https from "node:https";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import analyzeHandler from "./api/analyze.js";
+import historyHandler from "./api/history.js";
 import referencesHandler from "./api/references.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,6 +28,11 @@ const app = async (req, res) => {
   try {
     if (req.url?.startsWith("/api/analyze")) {
       await analyzeHandler(req, res);
+      return;
+    }
+
+    if (req.url?.startsWith("/api/history")) {
+      await historyHandler(req, res);
       return;
     }
 

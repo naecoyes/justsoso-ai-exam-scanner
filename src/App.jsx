@@ -156,19 +156,20 @@ export default function App() {
     return (
       <main className="h-screen overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
         <div className="flex h-full">
-          <div className="w-[42%] flex flex-col p-2 gap-2">
-            <header className="flex items-center justify-between rounded-lg bg-white/80 border border-slate-200/60 px-3 py-1.5 shadow-sm">
-              <div className="flex items-center gap-1.5">
-                <div className="h-6 w-6 rounded-md bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
-                  <BookOpen className="h-3 w-3 text-white" />
+          {/* Left Column - Camera */}
+          <div className="w-[40%] flex flex-col p-4 gap-4">
+            <header className="flex items-center justify-between rounded-xl bg-white/80 border border-slate-200/60 px-4 py-2.5 shadow-sm">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
+                  <BookOpen className="h-4 w-4 text-white" />
                 </div>
-                <h1 className="text-xs font-bold text-slate-900">{t("appTitle")}</h1>
+                <h1 className="text-sm font-bold text-slate-900">{t("appTitle")}</h1>
               </div>
-              <div className="flex items-center gap-1">
-                <button onClick={toggleLanguage} className="text-[10px] text-slate-600 border border-slate-200 rounded px-1.5 py-0.5 hover:bg-slate-50">
+              <div className="flex items-center gap-1.5">
+                <button onClick={toggleLanguage} className="text-xs text-slate-600 border border-slate-200 rounded-lg px-2 py-1 hover:bg-slate-50">
                   {language === "zh" ? "EN" : "中"}
                 </button>
-                <div className="text-[10px] font-semibold text-teal-700 bg-teal-50 rounded px-1.5 py-0.5">MiMo</div>
+                <div className="text-xs font-semibold text-teal-700 bg-teal-50 rounded-lg px-2 py-1">MiMo</div>
               </div>
             </header>
 
@@ -177,59 +178,53 @@ export default function App() {
             </div>
 
             {error && (
-              <div className="flex items-start gap-1 rounded-lg bg-rose-50/80 border border-rose-200/60 px-2 py-1 text-[10px] text-rose-700">
-                <AlertCircle className="h-3 w-3 shrink-0 mt-0.5" />
-                <span className="truncate">{error}</span>
+              <div className="flex items-start gap-2 rounded-xl bg-rose-50/80 border border-rose-200/60 px-3 py-2 text-xs text-rose-700">
+                <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                <span>{error}</span>
               </div>
             )}
 
             <AutoScanTimer enabled={autoScan} isAnalyzing={isAnalyzing} cameraReady={cameraReady} onEnabledChange={setAutoScan} onExpire={handleAutoScan} compact />
           </div>
 
-          <div className="w-[58%] flex flex-col p-2 gap-2 overflow-hidden border-l border-slate-200/60 bg-white/50">
-            <div className={`rounded-lg border ${color.border} ${color.bg} px-3 py-2 shadow-sm transition-colors duration-300`}>
+          {/* Right Column - Scrollable Content */}
+          <div className="w-[60%] flex flex-col p-4 gap-4 overflow-y-auto border-l border-slate-200/60 bg-white/50">
+            <div className={`rounded-xl border ${color.border} ${color.bg} px-4 py-3 shadow-sm transition-colors duration-300`}>
               <div className="flex items-center gap-2">
-                <Sparkles className={`h-3.5 w-3.5 ${color.icon}`} />
-                <span className={`text-xs font-semibold ${color.label}`}>{t("answer")}:</span>
+                <Sparkles className={`h-4 w-4 ${color.icon}`} />
+                <span className={`text-sm font-semibold ${color.label}`}>{t("answer")}:</span>
                 {isAnalyzing ? (
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
-                    <Clock3 className="h-3 w-3 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-600">
+                    <Clock3 className="h-4 w-4 animate-pulse" />
                     {t("analyzing")}
                   </span>
                 ) : result.answer ? (
-                  <span className={`text-lg font-bold ${color.answer}`}>{result.answer}</span>
+                  <span className={`text-xl font-bold ${color.answer}`}>{result.answer}</span>
                 ) : (
-                  <span className="text-xs text-slate-400">-</span>
+                  <span className="text-sm text-slate-400">-</span>
                 )}
                 {result.type && (
-                  <span className={`ml-auto rounded ${color.badge} px-1.5 py-0.5 text-[10px] font-semibold`}>
+                  <span className={`ml-auto rounded-lg ${color.badge} px-2 py-0.5 text-xs font-semibold`}>
                     {result.type}
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="flex-1 flex gap-2 min-h-0">
-              <div className="flex-1 rounded-lg bg-white/80 border border-slate-200/60 shadow-sm overflow-hidden flex flex-col">
-                <div className="flex items-center gap-1.5 border-b border-slate-100 px-2 py-1">
-                  <Camera className="h-3 w-3 text-slate-500" />
-                  <h2 className="text-[10px] font-semibold text-slate-800">{t("question")}</h2>
-                </div>
-                <div className="flex-1 overflow-y-auto">
-                  <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
-                </div>
+            <div className="flex-shrink-0 min-h-[400px] rounded-xl bg-white/80 border border-slate-200/60 shadow-sm flex flex-col overflow-hidden">
+              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
+                <Camera className="h-4 w-4 text-slate-500" />
+                <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
               </div>
-
-              <div className="w-36 flex flex-col gap-2">
-                <QuestionBankManager compact />
-                <QuestionList compact />
+              <div className="flex-1 overflow-y-auto relative">
+                <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} />
               </div>
             </div>
 
-            <div className="flex gap-2">
-              <div className="flex-1"><SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact /></div>
-              <div className="flex-1"><HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact /></div>
-            </div>
+            <QuestionBankManager />
+            <QuestionList />
+            <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} />
+            <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} />
           </div>
         </div>
       </main>

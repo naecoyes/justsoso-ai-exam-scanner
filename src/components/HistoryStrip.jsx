@@ -1,9 +1,42 @@
 import { History, Trash2 } from "lucide-react";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
-export default function HistoryStrip({ items, onSelect, onClear }) {
+export default function HistoryStrip({ items, onSelect, onClear, compact = false }) {
   const { t, language } = useLanguage();
   
+  if (compact) {
+    return (
+      <section className="rounded-lg border border-slate-200/60 bg-white/80 backdrop-blur-sm p-3 shadow-sm h-full flex flex-col">
+        <div className="mb-2 flex items-center gap-1.5">
+          <History className="h-3.5 w-3.5 text-slate-500" />
+          <h2 className="text-[10px] font-semibold text-slate-800">{t("history")}</h2>
+          <span className="ml-auto text-[10px] text-slate-400">{items.length}</span>
+        </div>
+        {items.length ? (
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {items.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className="group w-16 shrink-0 text-left"
+                onClick={() => onSelect(item)}
+              >
+                <span className="block overflow-hidden rounded-lg border border-slate-200/60 bg-slate-100">
+                  <img src={item.thumbnail} alt="" className="h-10 w-full object-cover" />
+                </span>
+                <span className="mt-1 block truncate text-[9px] text-emerald-600">
+                  {item.result?.answer || "-"}
+                </span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-[10px] text-slate-400">{t("noHistory")}</p>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm p-4 shadow-sm">
       <div className="mb-3 flex items-center gap-2.5">

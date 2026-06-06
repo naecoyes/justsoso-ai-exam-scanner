@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Settings, Save, Check, Zap } from "lucide-react";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
-export default function SettingsPanel({ quickMode, onQuickModeChange }) {
+export default function SettingsPanel({ quickMode, onQuickModeChange, compact = false }) {
   const { t } = useLanguage();
   const [config, setConfig] = useState({ apiKey: "", baseUrl: "", model: "" });
   const [saved, setSaved] = useState(false);
@@ -24,6 +24,31 @@ export default function SettingsPanel({ quickMode, onQuickModeChange }) {
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
+
+  if (compact) {
+    return (
+      <section className="rounded-lg border border-slate-200/60 bg-white/80 backdrop-blur-sm p-3 shadow-sm h-full flex flex-col justify-center">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <Settings className="h-3.5 w-3.5 text-slate-500" />
+            <h2 className="text-[10px] font-semibold text-slate-800">{t("modelSettings")}</h2>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-medium text-slate-600">{t("quickMode")}</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={quickMode}
+              className={`relative h-5 w-9 rounded-full transition ${quickMode ? "bg-gradient-to-r from-amber-500 to-orange-500" : "bg-slate-300"}`}
+              onClick={() => onQuickModeChange(!quickMode)}
+            >
+              <span className={`absolute top-[2px] h-4 w-4 rounded-full bg-white shadow transition ${quickMode ? "left-[18px]" : "left-[2px]"}`} />
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm p-5 shadow-sm">
