@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshCw, TimerReset } from "lucide-react";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
-const INTERVAL_SECONDS = 30;
+const INTERVAL_SECONDS = 10;
 
 export default function AutoScanTimer({
   enabled,
@@ -85,7 +85,7 @@ export default function AutoScanTimer({
             <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={dashOffset} className="text-amber-500 transition-all duration-300" />
           </svg>
           <div className="absolute inset-0 grid place-items-center">
-            <span className="text-base font-bold text-slate-900">{enabled ? remaining : 30}</span>
+            <span className="text-base font-bold text-slate-900">{enabled ? remaining : 10}</span>
           </div>
         </div>
 
@@ -162,7 +162,7 @@ export default function AutoScanTimer({
           </svg>
           <div className="absolute inset-0 grid place-items-center text-center">
             <div>
-              <div className="text-3xl font-bold text-slate-900">{enabled ? remaining : 30}</div>
+              <div className="text-3xl font-bold text-slate-900">{enabled ? remaining : 10}</div>
               <div className="text-xs font-medium text-slate-400">{t("seconds")}</div>
             </div>
           </div>
