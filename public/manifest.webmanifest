@@ -1,0 +1,19 @@
+{
+  "name": "AI 拍照答题扫描器",
+  "short_name": "拍照答题",
+  "description": "面向 CSA 312-39 备考的拍照识题工具",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fafaf9",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

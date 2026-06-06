@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AI 拍照答题">
+  <rect width="512" height="512" rx="88" fill="#0f766e"/>
+  <path fill="#f8fafc" d="M151 167h45l18-32h84l18 32h45c25 0 45 20 45 45v134c0 25-20 45-45 45H151c-25 0-45-20-45-45V212c0-25 20-45 45-45Z"/>
+  <circle cx="256" cy="278" r="70" fill="#134e4a"/>
+  <circle cx="256" cy="278" r="44" fill="#2dd4bf"/>
+  <path fill="#f59e0b" d="M371 122l12 29 31 3-24 20 7 31-26-16-27 16 7-31-24-20 31-3 13-29Z"/>
+  <path fill="#0f172a" d="M170 222h34v22h-34z"/>
+</svg>

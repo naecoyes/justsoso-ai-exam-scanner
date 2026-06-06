@@ -1,0 +1,19 @@
+services:
+  mimo-photo-solver:
+    build:
+      context: .
+    container_name: mimo-photo-solver
+    env_file:
+      - .env.local
+    environment:
+      PORT: 3000
+      USE_HTTPS: "1"
+      HTTPS_CERT_PATH: /app/certs/dev-server.crt
+      HTTPS_KEY_PATH: /app/certs/dev-server.key
+    ports:
+      - "8443:3000"
+    volumes:
+      - ./certs/dev-server.crt:/app/certs/dev-server.crt:ro
+      - ./certs/dev-server.key:/app/certs/dev-server.key:ro
+      - ./user-documents:/app/user-documents
+    restart: unless-stopped

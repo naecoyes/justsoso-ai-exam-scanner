@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>EC-Council CSA 312-39 — Exam Cheat Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans SC',sans-serif;font-size:9.5pt;line-height:1.35;color:#111;background:#fff;padding:6mm 6mm}
+  @page{size:A4;margin:6mm}
+  h1{font-size:13pt;font-weight:700;text-align:center;border-bottom:2px solid #111;padding-bottom:3px;margin-bottom:6px;letter-spacing:1px}
+  .subtitle{text-align:center;font-size:8pt;color:#555;margin-bottom:8px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}
+  .box{border:1px solid #999;border-radius:3px;padding:4px 5px;break-inside:avoid}
+  .box h2{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid currentColor}
+  .red h2{color:#c0392b;border-color:#c0392b}
+  .blue h2{color:#1a5276;border-color:#1a5276}
+  .green h2{color:#1e6d3a;border-color:#1e6d3a}
+  .orange h2{color:#b7540d;border-color:#b7540d}
+  .purple h2{color:#6c3483;border-color:#6c3483}
+  .teal h2{color:#117a65;border-color:#117a65}
+  .navy h2{color:#154360;border-color:#154360}
+  .brown h2{color:#6e2f1a;border-color:#6e2f1a}
+  .gray h2{color:#333;border-color:#333}
+  table{width:100%;border-collapse:collapse;font-size:8.5pt}
+  td,th{padding:1.5px 3px;vertical-align:top}
+  th{font-weight:700;background:#f0f0f0}
+  tr:nth-child(even) td{background:#fafafa}
+  .tag{display:inline-block;background:#e8e8e8;border-radius:2px;padding:0 3px;font-size:7.5pt;font-family:'JetBrains Mono',monospace;margin:1px 1px}
+  .tag.r{background:#fde8e8;color:#c0392b}
+  .tag.b{background:#d6eaf8;color:#1a5276}
+  .tag.g{background:#d5f5e3;color:#1e6d3a}
+  .tag.o{background:#fdebd0;color:#b7540d}
+  .tag.p{background:#e8daef;color:#6c3483}
+  code{font-family:'JetBrains Mono',monospace;font-size:7.5pt;background:#f5f5f5;padding:0 2px;border-radius:1px}
+  .row{display:flex;gap:5px}
+  .row>.box{flex:1}
+  .kv{display:flex;justify-content:space-between;padding:1px 0;border-bottom:1px dotted #ddd}
+  .kv:last-child{border-bottom:none}
+  .kv .k{font-weight:700;color:#333;min-width:38px}
+  .kv .v{color:#555;text-align:right;font-size:8pt}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:2px;font-size:8pt}
+  .flow span{background:#f0f0f0;padding:1px 4px;border-radius:2px;white-space:nowrap}
+  .flow .arr{color:#999;font-size:7pt;padding:0}
+  .warn{background:#fff3cd;border-left:3px solid #f0ad4e;padding:2px 4px;font-size:8pt;margin-top:3px}
+  .correct{background:#d4edda;border-left:3px solid #28a745;padding:2px 4px;font-size:8pt;margin-top:3px}
+  ul{list-style:disc;padding-left:12px;font-size:8.5pt}
+  ul li{margin-bottom:1px}
+  .divider{border:none;border-top:1.5px dashed #bbb;margin:5px 0}
+  .id-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px 8px;font-size:8pt}
+  .id-row{display:flex;gap:4px;padding:1px 0;border-bottom:1px dotted #eee}
+  .id-row .id{font-family:'JetBrains Mono',monospace;font-weight:700;color:#c0392b;min-width:34px;font-size:8pt}
+  .id-row .desc{color:#222;font-size:8pt}
+  .badge{display:inline-block;padding:1px 5px;border-radius:10px;font-size:7.5pt;font-weight:700}
+  .badge.r{background:#fde8e8;color:#c0392b}
+  .badge.g{background:#d5f5e3;color:#1e6d3a}
+  .badge.b{background:#d6eaf8;color:#1a5276}
+  .badge.o{background:#fdebd0;color:#b7540d}
+  .badge.p{background:#e8daef;color:#6c3483}
+</style>
+</head>
+<body>
+
+<h1>EC-Council CSA 312-39 — 考试速查表</h1>
+<div class="subtitle">100题 / 3小时 / 及格线70% (70题) | 英文作答 | 每题≈1.8分钟</div>
+
+<!-- ROW 1 -->
+<div class="grid">
+
+  <!-- Windows Event IDs -->
+  <div class="box red">
+    <h2>⚡ Windows Event IDs（必背）</h2>
+    <div class="id-grid">
+      <div>
+        <div class="id-row"><span class="id">4624</span><span class="desc">Successful Logon</span></div>
+        <div class="id-row"><span class="id">4625</span><span class="desc">Failed Logon</span></div>
+        <div class="id-row"><span class="id">4634</span><span class="desc">Logoff</span></div>
+        <div class="id-row"><span class="id">4648</span><span class="desc">Explicit Credentials Used</span></div>
+        <div class="id-row"><span class="id">4688</span><span class="desc">Process Creation ★★★</span></div>
+        <div class="id-row"><span class="id">4740</span><span class="desc">Account Locked Out ★★</span></div>
+        <div class="id-row"><span class="id">4657</span><span class="desc">Registry Key Modified</span></div>
+        <div class="id-row"><span class="id">4663</span><span class="desc">Registry Key Access</span></div>
+      </div>
+      <div>
+        <div class="id-row"><span class="id">4720</span><span class="desc">User Account Created</span></div>
+        <div class="id-row"><span class="id">4726</span><span class="desc">User Account Deleted</span></div>
+        <div class="id-row"><span class="id">4732</span><span class="desc">Added to Security Group</span></div>
+        <div class="id-row"><span class="id">5140</span><span class="desc">Network Share Access</span></div>
+        <div class="id-row"><span class="id">7045</span><span class="desc">New Service Installed ★</span></div>
+        <div class="id-row"><span class="id">1102</span><span class="desc">Audit Log Cleared ★</span></div>
+        <div class="id-row"><span class="id">4776</span><span class="desc">Domain Auth Attempt</span></div>
+        <div class="id-row"><span class="id">4798</span><span class="desc">User's Group Enum</span></div>
+      </div>
+    </div>
+    <div class="warn">Splunk监控进程创建: <code>EventCode=4688 NOT (Account_Name=*$)</code></div>
+    <div class="warn">日志被清除(1102) = 攻击者 Covering Tracks | 账户锁定(4740) = Brute Force</div>
+  </div>
+
+  <!-- SOC Roles & Workflow -->
+  <div class="box blue">
+    <h2>🏢 SOC 结构 &amp; 角色</h2>
+    <table>
+      <tr><th>角色</th><th>职责关键词</th></tr>
+      <tr><td>SOC Manager</td><td>Budget, Personnel, Legal</td></tr>
+      <tr><td>CISO</td><td>策略/政策/治理 Strategy, Policy</td></tr>
+      <tr><td><b>L1 Analyst</b></td><td>监控SIEM告警, Triage, 更新工单</td></tr>
+      <tr><td><b>L2 Analyst</b></td><td>深度调查 Investigate, Validate, Prioritize</td></tr>
+      <tr><td>L3 / Threat Hunter</td><td>高级分析, 威胁狩猎, 制定Use Case</td></tr>
+      <tr><td>IR Team</td><td>事件处置 Incident Response</td></tr>
+      <tr><td>Forensic Investigator</td><td>收集保存数字证据</td></tr>
+      <tr><td>Compliance Auditor</td><td>监控员工行为合规性</td></tr>
+    </table>
+    <hr class="divider">
+    <b style="font-size:8pt">SOC Workflow 顺序 ★★★</b>
+    <div class="flow" style="margin-top:3px">
+      <span>Collect</span><span class="arr">→</span>
+      <span>Ingest</span><span class="arr">→</span>
+      <span>Validate</span><span class="arr">→</span>
+      <span>Document</span><span class="arr">→</span>
+      <span>Report</span><span class="arr">→</span>
+      <span>Respond</span>
+    </div>
+    <div class="correct">制定SOC战略/流程/政策 → CISO | 确认事件后升级 → L2</div>
+  </div>
+
+  <!-- Threat Intelligence -->
+  <div class="box purple">
+    <h2>🔍 Threat Intelligence 类型</h2>
+    <table>
+      <tr><th>类型</th><th>受众</th><th>内容关键词</th></tr>
+      <tr><td><b>Strategic</b></td><td>CISO/管理层</td><td>风险趋势, 攻击者动机, 业务影响</td></tr>
+      <tr><td><b>Tactical</b></td><td>SOC分析师</td><td><b>TTPs</b> (Tactics/Techniques/Procedures)</td></tr>
+      <tr><td><b>Operational</b></td><td>IR/SOC/NOC</td><td>特定攻击活动, 社交媒体, 聊天室, 人力情报</td></tr>
+      <tr><td><b>Technical</b></td><td>安全设备</td><td><b>IOC</b>: 恶意IP/Hash/域名/URL</td></tr>
+    </table>
+    <hr class="divider">
+    <div class="kv"><span class="k">Counter Intelligence</span><span class="v">用蜜罐/诱饵误导攻击者获取其信息</span></div>
+    <div class="kv"><span class="k">STIX</span><span class="v">威胁情报共享格式(结构化语言)</span></div>
+    <div class="kv"><span class="k">TAXII</span><span class="v">威胁情报传输协议</span></div>
+    <div class="warn">社交媒体/聊天室收集攻击活动报告 → <b>Operational</b></div>
+    <div class="warn">了解对手意图/制定安全决策 → <b>Strategic</b></div>
+  </div>
+</div>
+
+<!-- ROW 2 -->
+<div class="grid" style="margin-top:5px">
+
+  <!-- Attack Types -->
+  <div class="box orange">
+    <h2>⚔️ 攻击类型识别（高频）</h2>
+    <table>
+      <tr><th>攻击</th><th>特征/关键词</th></tr>
+      <tr><td><b>SQL Injection</b></td><td><code>' OR 1=1 --</code> / <code>%27</code> / UNION SELECT / safe API防御</td></tr>
+      <tr><td><b>XSS</b></td><td><code>&lt;script&gt;</code> / <code>%3Cscript%3E</code> / img标签注入</td></tr>
+      <tr><td><b>Directory Traversal</b></td><td><code>../</code> / <code>%2E%2E/</code> / /etc/passwd</td></tr>
+      <tr><td><b>Parameter Tampering</b></td><td>修改URL参数 debit=100→debit=10</td></tr>
+      <tr><td><b>CSRF</b></td><td>伪造跨站请求, 利用已认证会话</td></tr>
+      <tr><td><b>DHCP Starvation</b></td><td>大量伪造DHCP请求耗尽IP池</td></tr>
+      <tr><td><b>DNS Exfiltration</b></td><td>大量TXT/NULL/异常DNS查询偷数据</td></tr>
+      <tr><td><b>Ransomware</b></td><td>文件后缀突变, 大量重命名/加密</td></tr>
+      <tr><td><b>DoS Absorbing</b></td><td>增加带宽+服务器容量应对DDoS</td></tr>
+    </table>
+    <hr class="divider">
+    <b style="font-size:8pt">URL编码对照</b>
+    <div style="margin-top:2px;display:flex;flex-wrap:wrap;gap:2px">
+      <span class="tag r">'= %27</span>
+      <span class="tag r">&lt;= %3C</span>
+      <span class="tag r">&gt;= %3E</span>
+      <span class="tag r">. = %2E</span>
+      <span class="tag r">/ = %2F</span>
+      <span class="tag r">\ = %5C</span>
+      <span class="tag r">空格=%20</span>
+    </div>
+  </div>
+
+  <!-- Log Paths -->
+  <div class="box green">
+    <h2>📂 日志路径（必背）</h2>
+    <b style="font-size:8pt">Linux</b>
+    <table style="margin-top:2px;margin-bottom:4px">
+      <tr><td><code>/var/log/auth.log</code></td><td>认证/SSH/sudo ★</td></tr>
+      <tr><td><code>/var/log/syslog</code></td><td>系统常规日志</td></tr>
+      <tr><td><code>/var/log/kern.log</code></td><td>iptables/内核 (<code>tailf</code>查看)</td></tr>
+      <tr><td><code>/var/log/secure</code></td><td>RHEL/CentOS认证日志</td></tr>
+      <tr><td><code>/var/log/wtmp</code></td><td>登录历史记录</td></tr>
+      <tr><td><code>/var/log/cups/access_log</code></td><td>打印机CUPS日志</td></tr>
+      <tr><td><code>/var/log/faillog</code></td><td>登录失败记录</td></tr>
+    </table>
+    <b style="font-size:8pt">macOS ★★</b>
+    <div class="kv"><span class="k"><code>/private/var/log/secure.log</code></span><span class="v">安全/认证日志</span></div>
+    <div class="kv"><span class="k"><code>~/Library/Logs</code></span><span class="v">用户应用日志</span></div>
+    <hr class="divider">
+    <b style="font-size:8pt">Windows IIS ★★</b>
+    <div class="tag b" style="margin:2px 0;font-size:7.5pt">%SystemDrive%\inetpub\logs\LogFiles\W3SVC&lt;N&gt;\</div>
+    <div class="kv" style="margin-top:3px"><span class="k">Security Auditing启用</span><span class="v">Local Group Policy Editor</span></div>
+    <div class="kv"><span class="k">iptables查看命令</span><span class="v"><code>tailf /var/log/kern.log</code></span></div>
+  </div>
+
+  <!-- SIEM & Detection -->
+  <div class="box teal">
+    <h2>🖥 SIEM &amp; 检测技术</h2>
+    <table>
+      <tr><th>SIEM架构</th><th>说明</th></tr>
+      <tr><td>Cloud MSSP Managed</td><td>云端第三方托管</td></tr>
+      <tr><td>Self-hosted Self-Managed</td><td>自建自管</td></tr>
+      <tr><td>Self-hosted MSSP Managed</td><td>自建但MSSP管理</td></tr>
+      <tr><td>Jointly Managed</td><td>联合管理</td></tr>
+    </table>
+    <hr class="divider">
+    <div class="kv"><span class="k">SIEM Agent职责</span><span class="v"><b>Collect + Normalize</b>（非Correlate）</span></div>
+    <div class="kv"><span class="k">Correlation引擎</span><span class="v">由SIEM Server执行，非Agent</span></div>
+    <div class="kv"><span class="k">EPS公式 ★</span><span class="v"><b>事件总数 ÷ 时间(秒)</b></span></div>
+    <div class="kv"><span class="k">减少误报FP ★</span><span class="v"><b>Ingesting context data</b> 注入上下文</span></div>
+    <div class="kv"><span class="k">Push-based日志</span><span class="v">系统主动发送到SIEM（非规则触发）</span></div>
+    <hr class="divider">
+    <b style="font-size:8pt">检测技术匹配 ★★★</b>
+    <div class="kv"><span class="k">UEBA</span><span class="v"><b>Anomaly-based detection</b></span></div>
+    <div class="kv"><span class="k">签名/规则</span><span class="v">Signature/Rule-based detection</span></div>
+    <div class="kv"><span class="k">Snort/Suricata</span><span class="v">IDS/IPS工具</span></div>
+    <div class="warn">常见SIEM: Splunk / IBM QRadar / MS Sentinel / ArcSight</div>
+  </div>
+</div>
+
+<!-- ROW 3 -->
+<div class="grid" style="margin-top:5px">
+
+  <!-- Incident Response -->
+  <div class="box navy">
+    <h2>🚨 Incident Response 流程</h2>
+    <b style="font-size:8pt">EC-Council IH&amp;R流程 ★★★</b>
+    <div class="flow" style="margin:3px 0">
+      <span>Preparation</span><span class="arr">→</span>
+      <span>Incident Recording</span><span class="arr">→</span>
+      <span>Incident Triage</span><span class="arr">→</span>
+      <span>Containment</span><span class="arr">→</span>
+      <span>Eradication</span><span class="arr">→</span>
+      <span>Recovery</span><span class="arr">→</span>
+      <span>Post-Incident</span>
+    </div>
+    <table style="margin-top:3px">
+      <tr><th>阶段</th><th>关键动作</th></tr>
+      <tr><td><b>Containment</b></td><td>限制影响范围, 隔离受感染机器</td></tr>
+      <tr><td><b>Eradication</b></td><td>找到Root Cause并清除</td></tr>
+      <tr><td><b>Recovery</b></td><td>恢复系统到正常状态</td></tr>
+    </table>
+    <hr class="divider">
+    <div class="kv"><span class="k">恶意软件扩散首步 ★</span><span class="v"><b>Turn off infected machine</b></span></div>
+    <div class="kv"><span class="k">IRT收到升级首步</span><span class="v"><b>Incident Classification</b></span></div>
+    <div class="kv"><span class="k">取证收集证据后下一步</span><span class="v"><b>Chain of Custody Document</b></span></div>
+    <div class="kv"><span class="k">OODA Loop</span><span class="v">Observe→Orient→Decide→Act</span></div>
+    <hr class="divider">
+    <b style="font-size:8pt">取证工具</b>
+    <div style="display:flex;flex-wrap:wrap;gap:2px;margin-top:2px">
+      <span class="tag b">Redline=RAM分析</span>
+      <span class="tag b">PeStudio=静态分析</span>
+      <span class="tag b">MagicTree=报告</span>
+      <span class="tag b">Autopsy/FTK=磁盘取证</span>
+    </div>
+  </div>
+
+  <!-- Kill Chain & ATT&CK -->
+  <div class="box brown">
+    <h2>⛓ Kill Chain &amp; MITRE ATT&amp;CK</h2>
+    <b style="font-size:8pt">Cyber Kill Chain 顺序 ★★★</b>
+    <div class="flow" style="margin:3px 0">
+      <span>Recon</span><span class="arr">1→</span>
+      <span>Weaponization</span><span class="arr">2→</span>
+      <span>Delivery</span><span class="arr">3→</span>
+      <span>Exploitation</span><span class="arr">4→</span>
+      <span>Installation</span><span class="arr">5→</span>
+      <span>C2</span><span class="arr">6→</span>
+      <span>Actions</span>
+    </div>
+    <div class="warn">邮件附件木马 = <b>Delivery</b> | 制作恶意Payload = <b>Weaponization</b></div>
+    <hr class="divider">
+    <b style="font-size:8pt">MITRE ATT&amp;CK 战术</b>
+    <table style="margin-top:2px">
+      <tr><td>Initial Access</td><td>Phishing, 钓鱼邮件</td></tr>
+      <tr><td>Execution</td><td>PowerShell, cmd</td></tr>
+      <tr><td>Persistence</td><td>Registry Run Key, 计划任务</td></tr>
+      <tr><td>Privilege Escalation</td><td>Token Abuse, UAC绕过</td></tr>
+      <tr><td>Defense Evasion</td><td>Log Clearing (1102), Obfuscation</td></tr>
+      <tr><td>Credential Access</td><td>Mimikatz, Credential Dumping</td></tr>
+      <tr><td>Exfiltration</td><td>FTP上传, DNS隧道</td></tr>
+    </table>
+    <div class="warn">LOLBin常见: rundll32 / regsvr32 / mshta / certutil | Base64=Obfuscation</div>
+  </div>
+
+  <!-- Ports & Protocols -->
+  <div class="box gray">
+    <h2>🔌 常见端口 &amp; HTTP状态码</h2>
+    <div class="grid-2" style="gap:3px">
+      <div>
+        <b style="font-size:8pt">端口速记</b>
+        <div class="kv"><span class="k">HTTP</span><span class="v">80</span></div>
+        <div class="kv"><span class="k">HTTPS</span><span class="v">443</span></div>
+        <div class="kv"><span class="k">DNS</span><span class="v">53</span></div>
+        <div class="kv"><span class="k">SSH</span><span class="v">22</span></div>
+        <div class="kv"><span class="k">FTP</span><span class="v">21 (ctrl) / 20 (data)</span></div>
+        <div class="kv"><span class="k">SMTP</span><span class="v">25</span></div>
+        <div class="kv"><span class="k">POP3</span><span class="v">110</span></div>
+        <div class="kv"><span class="k">IMAP</span><span class="v">143</span></div>
+        <div class="kv"><span class="k">RDP</span><span class="v">3389</span></div>
+        <div class="kv"><span class="k">SMB</span><span class="v">445</span></div>
+        <div class="kv"><span class="k">LDAP</span><span class="v">389</span></div>
+        <div class="kv"><span class="k">Kerberos</span><span class="v">88</span></div>
+        <div class="kv"><span class="k">SNMP</span><span class="v">161/162</span></div>
+        <div class="kv"><span class="k">Syslog</span><span class="v">514</span></div>
+      </div>
+      <div>
+        <b style="font-size:8pt">HTTP状态码 ★★</b>
+        <div class="kv"><span class="k">1XX</span><span class="v">Informational</span></div>
+        <div class="kv"><span class="k">2XX</span><span class="v">Success</span></div>
+        <div class="kv"><span class="k">3XX</span><span class="v">Redirection</span></div>
+        <div class="kv"><span class="k">4XX</span><span class="v">Client Error</span></div>
+        <div class="kv"><span class="k">5XX</span><span class="v">Server Error</span></div>
+        <div class="kv"><span class="k">200</span><span class="v">OK</span></div>
+        <div class="kv"><span class="k">301/302</span><span class="v">Redirect</span></div>
+        <div class="kv"><span class="k">400</span><span class="v">Bad Request</span></div>
+        <div class="kv"><span class="k">401</span><span class="v">Unauthorized</span></div>
+        <div class="kv"><span class="k"><b>403</b></span><span class="v"><b>Forbidden ★</b></span></div>
+        <div class="kv"><span class="k">404</span><span class="v">Not Found</span></div>
+        <div class="kv"><span class="k"><b>500</b></span><span class="v"><b>Internal Server Error ★</b></span></div>
+        <div class="kv"><span class="k">503</span><span class="v">Service Unavailable</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 4 -->
+<div class="grid" style="margin-top:5px">
+
+  <!-- Password & Filtering -->
+  <div class="box red">
+    <h2>🔑 密码攻击 &amp; 过滤</h2>
+    <b style="font-size:8pt">Password Attack类型</b>
+    <table style="margin-top:2px;margin-bottom:4px">
+      <tr><th>类型</th><th>原理</th></tr>
+      <tr><td>Dictionary</td><td>使用字典单词列表</td></div></tr>
+      <tr><td>Brute Force</td><td>穷举全部字符组合</td></tr>
+      <tr><td><b>Hybrid ★★</b></td><td>字典 + 数字 + 特殊符号（≠Brute Force）</td></tr>
+      <tr><td><b>Rainbow Table ★</b></td><td>预计算Hash表（≠Dictionary）</td></tr>
+      <tr><td>Credential Stuffing</td><td>泄露的账密对撞库</td></tr>
+    </table>
+    <div class="warn">Hybrid ≠ Brute Force | Rainbow Table = 预计算Hash（非字典）</div>
+    <hr class="divider">
+    <b style="font-size:8pt">流量过滤 ★★</b>
+    <div class="kv"><span class="k">Egress Filtering</span><span class="v">扫描<b>出网</b>流量，防止数据泄露/C2</span></div>
+    <div class="kv"><span class="k">Ingress Filtering</span><span class="v">扫描<b>入网</b>流量，防IP欺骗/泛洪</span></div>
+    <div class="kv"><span class="k">Black Hole Filtering</span><span class="v">路由层直接丢包，不通知源</span></div>
+    <div class="kv"><span class="k">Rate Limiting</span><span class="v">限制请求速率</span></div>
+  </div>
+
+  <!-- Risk & Cisco ASA -->
+  <div class="box orange">
+    <h2>📊 风险 &amp; Cisco ASA日志</h2>
+    <b style="font-size:8pt">风险计算公式 ★★</b>
+    <div class="correct" style="margin:3px 0">
+      基础: <b>Risk = Likelihood × Consequence</b><br>
+      含资产: <b>Risk = Likelihood × Impact × Asset Value</b>
+    </div>
+    <b style="font-size:8pt">Risk Matrix</b>
+    <table style="margin:2px 0">
+      <tr><th>Probability</th><th>Impact</th><th>Risk</th></tr>
+      <tr><td>Very High</td><td>Major</td><td><b>Extreme</b></td></tr>
+      <tr><td>Very Low</td><td>Major</td><td>Low</td></tr>
+    </table>
+    <hr class="divider">
+    <b style="font-size:8pt">Cisco ASA Syslog Severity ★★</b>
+    <div style="font-size:7.5pt;margin:2px 0"><code>%ASA-<b>severity</b>-messageID</code></div>
+    <div class="id-grid" style="margin-top:2px">
+      <div>
+        <div class="id-row"><span class="id">0</span><span class="desc">Emergency</span></div>
+        <div class="id-row"><span class="id">1</span><span class="desc">Alert</span></div>
+        <div class="id-row"><span class="id">2</span><span class="desc">Critical</span></div>
+        <div class="id-row"><span class="id">3</span><span class="desc">Error</span></div>
+      </div>
+      <div>
+        <div class="id-row"><span class="id">4</span><span class="desc">Warning</span></div>
+        <div class="id-row"><span class="id">5</span><span class="desc">Notification</span></div>
+        <div class="id-row"><span class="id">6</span><span class="desc">Informational</span></div>
+        <div class="id-row"><span class="id">7</span><span class="desc">Debugging</span></div>
+      </div>
+    </div>
+    <div class="warn">数字越小=越严重 | <code>%ASA-5-xxx</code> → Notification(通知级)</div>
+  </div>
+
+  <!-- Common Mistakes & Quick Tips -->
+  <div class="box purple">
+    <h2>⚠️ 高频易错点纠错</h2>
+    <table>
+      <tr><th>错误理解</th><th>正确答案</th></tr>
+      <tr><td>Rainbow Table = 字典攻击</td><td>Rainbow Table = <b>预计算Hash</b></td></tr>
+      <tr><td>Hybrid Attack = Brute Force</td><td>Hybrid = 字典+数字+符号</td></tr>
+      <tr><td>SIEM Agent做Correlation</td><td>Agent只做 <b>Collect/Normalize</b></td></tr>
+      <tr><td>Push-based = 规则触发</td><td>Push-based = <b>主动推送</b>日志</td></tr>
+      <tr><td>Weaponization = Delivery</td><td>Weaponization = <b>制作Payload</b></td></tr>
+      <tr><td>UEBA = Rule-based</td><td>UEBA = <b>Anomaly-based</b></td></tr>
+      <tr><td>Mac日志在~/Library/Logs</td><td>安全日志在 <b>/private/var/log</b></td></tr>
+    </table>
+    <hr class="divider">
+    <b style="font-size:8pt">快速解题口诀</b>
+    <ul style="font-size:8pt;margin-top:2px">
+      <li>../  → <b>Directory Traversal</b></li>
+      <li>' OR 1=1 → <b>SQL Injection</b></li>
+      <li>%3Cscript → <b>XSS</b></li>
+      <li>debit=10改debit=1 → <b>Parameter Tampering</b></li>
+      <li>大量DNS TXT查询 → <b>DNS Exfiltration</b></li>
+      <li>文件批量重命名/加密 → <b>Ransomware</b></li>
+      <li>SYN大量请求 → <b>SYN Flood (DoS)</b></li>
+      <li>EncodedCommand → <b>PowerShell恶意执行</b></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ROW 5 - Wide boxes -->
+<div class="row" style="margin-top:5px">
+  <div class="box green" style="flex:1">
+    <h2>🔬 IOC / 证据 / 取证</h2>
+    <table>
+      <tr><th>IOC类型</th><th>示例</th><th>Hash类型</th><th>用途</th></tr>
+      <tr><td>IP Address</td><td>恶意C2 IP</td><td>MD5</td><td>128-bit, 快速校验</td></tr>
+      <tr><td>Domain/URL</td><td>钓鱼域名</td><td>SHA-1</td><td>160-bit</td></tr>
+      <tr><td>File Hash</td><td>恶意软件hash</td><td><b>SHA-256</b></td><td>最推荐，256-bit</td></tr>
+      <tr><td>Registry Key</td><td>持久化Run Key</td><td>SHA-512</td><td>最强</td></tr>
+    </table>
+    <div class="kv" style="margin-top:3px"><span class="k">Chain of Custody ★</span><span class="v">收集证据后<b>立即</b>建立监管链文档，保证法庭合法性</span></div>
+    <div class="kv"><span class="k">Cisco ASA -n参数</span><span class="v">不执行DNS反解析以<b>加快处理速度</b></span></div>
+    <div class="kv"><span class="k">IDS</span><span class="v">只检测，不阻断</span></div>
+    <div class="kv"><span class="k">IPS</span><span class="v">可以主动<b>阻断</b>攻击</span></div>
+  </div>
+
+  <div class="box blue" style="flex:1.2">
+    <h2>🎯 实战题型速查 — 常考场景匹配</h2>
+    <table>
+      <tr><th>题目场景关键词</th><th>答案</th></tr>
+      <tr><td>监控进程创建 Splunk查询</td><td><code>EventCode=4688 NOT (Account_Name=*$)</code></td></tr>
+      <tr><td>启用Windows安全审计</td><td><b>Local Group Policy Editor</b></td></tr>
+      <tr><td>Mac安全日志目录</td><td><b>/private/var/log/</b> (secure.log)</td></tr>
+      <tr><td>Ubuntu查看iptables日志</td><td><code>tailf /var/log/kern.log</code></td></tr>
+      <tr><td>减少误报FP最佳方法</td><td><b>Ingesting context data</b></td></tr>
+      <tr><td>UEBA用的检测技术</td><td><b>Anomaly-based detection</b></td></tr>
+      <tr><td>计算EPS</td><td><b>事件数 ÷ 秒数</b></td></tr>
+      <tr><td>恶意软件扩散，第一步</td><td><b>Turn off infected machine</b></td></tr>
+      <tr><td>IRT收到升级，第一步</td><td><b>Incident Classification</b></td></tr>
+      <tr><td>取证：收集证据后下一步</td><td><b>Create Chain of Custody Document</b></td></tr>
+      <tr><td>DDoS时增加带宽+服务器</td><td><b>Absorbing the Attack</b></td></tr>
+      <tr><td>彻底根除SQL注入</td><td><b>Safe API / Parameterized Queries</b></td></tr>
+      <tr><td>用蜜罐误导攻击者</td><td><b>Counter Intelligence</b></td></tr>
+      <tr><td>对手意图+明智安全决策</td><td><b>Strategic Threat Intelligence</b></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ROW 6 - Vocabulary -->
+<div class="box gray" style="margin-top:5px">
+  <h2>📖 高频不常见词汇 — 读题关键词锁定考点</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px 10px">
+
+    <div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Gruesome</b> <span style="font-weight:400;color:#888">adj.</span></span><span class="v">可怕的 → 描述破坏性极强的恶意软件</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Inundate</b> <span style="font-weight:400;color:#888">v.</span></span><span class="v">淹没/应接不暇 → 海量伪造请求攻击服务器</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Tampering</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">篡改 → Parameter Tampering攻击URL参数</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Obfuscated</b> <span style="font-weight:400;color:#888">adj.</span></span><span class="v">混淆的 → 恶意代码加密混淆逃避AV检测</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Tautology</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">重言式/恒真式 → SQL注入中 <code>1=1</code> 或 <code>'OR T=T</code></span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Starvation</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">饥饿/耗尽资源 → DHCP Starvation耗尽IP池</span></div>
+    </div>
+
+    <div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Adversary</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">对手/敌手 → CTI中替代"hacker"的正式用词</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Exfiltration</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">数据渗出 → 攻击者将数据偷传出内网</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Reconnaissance</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">侦察/踩点 → Kill Chain第1步</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Eradication</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">根除 → IH&R第4阶段，清除Root Cause</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Triage</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">分流/分类 → 告警验证与严重性定级（L1职责）</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Custody</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">保管/羁押 → Chain of Custody 证据监管链</span></div>
+    </div>
+
+    <div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Deprovisioning</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">撤销权限 → SOAR Playbook自动停用用户</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Decoy</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">诱饵 → Honeypot蜜罐的作用描述</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Heterogeneous</b> <span style="font-weight:400;color:#888">adj.</span></span><span class="v">异构的 → SIEM接收不同格式/来源的日志</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Dissemination</b> <span style="font-weight:400;color:#888">n.</span></span><span class="v">分发/传播 → 威胁情报生命周期/安全标准传播</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>In-house</b> <span style="font-weight:400;color:#888">adj.</span></span><span class="v">内部的 → 企业自建SOC，非外包</span></div>
+      <div class="kv"><span class="k" style="min-width:110px"><b>Absorbing</b> <span style="font-weight:400;color:#888">v.</span></span><span class="v">吸收 → DDoS时增加带宽+容量=Absorbing the Attack</span></div>
+    </div>
+
+  </div>
+  <div class="warn" style="margin-top:4px">
+    解题技巧：看到 <b>Custody</b>=取证监管链 | <b>Triage</b>=事件分流分类 | <b>Exfiltration</b>=数据外泄 | <b>Adversary</b>=攻击者 | <b>Tautology</b>=SQL注入恒真式 | <b>Obfuscated</b>=恶意代码混淆
+  </div>
+</div>
+
+<div style="text-align:center;font-size:7.5pt;color:#888;margin-top:6px;border-top:1px solid #ddd;padding-top:3px">
+  EC-Council CSA 312-39 | 100Q / 3h / 70% Pass | ★=高频必背 | 打印后可折叠双面使用
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+node_modules
+dist
+.env
+.env.local
+.vercel
+.DS_Store
+certs/*.key
+certs/*.srl
+certs/*.csr
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Question bank files
+*.json
+!package.json
+!package-lock.json
+!manifest.webmanifest
+question-banks/
+user-documents/
