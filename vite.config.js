@@ -8,6 +8,8 @@ const httpsKeyPath = path.resolve("certs/dev-server.key");
 const httpsCertPath = path.resolve("certs/dev-server.crt");
 const useHttps = process.env.USE_HTTPS === "1";
 
+import historyHandler from "./api/history.js";
+
 function localApiPlugin() {
   return {
     name: "local-api-analyze",
@@ -15,6 +17,16 @@ function localApiPlugin() {
       server.middlewares.use("/api/analyze", async (req, res) => {
         try {
           await analyzeHandler(req, res);
+        } catch (error) {
+          server.config.logger.error(error);
+          res.statusCode = 500;
+          res.setHeader("content-type", "application/json; charset=utf-8");
+          res.end(JSON.stringify({ error: "本地 API 代理异常" }));
+        }
+      });
+      server.middlewares.use("/api/history", async (req, res) => {
+        try {
+          await historyHandler(req, res);
         } catch (error) {
           server.config.logger.error(error);
           res.statusCode = 500;
