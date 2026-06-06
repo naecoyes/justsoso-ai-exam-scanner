@@ -8,7 +8,7 @@ import SettingsPanel from "./components/SettingsPanel.jsx";
 import QuestionBankManager from "./components/QuestionBankManager.jsx";
 import QuestionList from "./components/QuestionList.jsx";
 import { analyzeQuestionImage, saveQuestion } from "./lib/apiClient.js";
-import { addHistoryItem, getHistoryItems, clearHistory } from "./lib/historyDb.js";
+import { addHistoryItem, getHistoryItems, clearHistory, migrateHistoryToServer } from "./lib/historyDb.js";
 import { useLanguage } from "./lib/LanguageContext.jsx";
 
 const INITIAL_RESULT = {
@@ -59,7 +59,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    getHistoryItems().then(setHistory).catch(() => setHistory([]));
+    migrateHistoryToServer().then(() => {
+      getHistoryItems().then(setHistory).catch(() => setHistory([]));
+    });
   }, []);
 
   useEffect(() => {
