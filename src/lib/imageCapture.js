@@ -8,22 +8,11 @@ export async function captureVideoFrame(video, cropElement) {
     throw new Error("摄像头画面尚未准备好");
   }
 
-  const crop = getVideoCropRect(video, cropElement);
   const canvas = document.createElement("canvas");
-  canvas.width = crop.width;
-  canvas.height = crop.height;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
   const context = canvas.getContext("2d", { willReadFrequently: false });
-  context.drawImage(
-    video,
-    crop.x,
-    crop.y,
-    crop.width,
-    crop.height,
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   return canvasToPayload(canvas, "camera");
 }
@@ -162,55 +151,4 @@ export function assessImageQuality(metrics, mode = "camera") {
   }
 
   return { ok: true, message: "" };
-}
-
-function getVideoCropRect(video, cropElement) {
-  if (!cropElement) {
-    return {
-      x: 0,
-      y: 0,
-      width: video.videoWidth,
-      height: video.videoHeight
-    };
-  }
-
-  const videoRect = video.getBoundingClientRect();
-  const cropRect = cropElement.getBoundingClientRect();
-  if (!videoRect.width || !videoRect.height || !cropRect.width || !cropRect.height) {
-    return {
-      x: 0,
-      y: 0,
-      width: video.videoWidth,
-      height: video.videoHeight
-    };
-  }
-
-  const scale = Math.max(videoRect.width / video.videoWidth, videoRect.height / video.videoHeight);
-  const renderedWidth = video.videoWidth * scale;
-  const renderedHeight = video.videoHeight * scale;
-  const offsetX = (videoRect.width - renderedWidth) / 2;
-  const offsetY = (videoRect.height - renderedHeight) / 2;
-
-  const cropLeft = cropRect.left - videoRect.left;
-  const cropTop = cropRect.top - videoRect.top;
-  const sourceX = (cropLeft - offsetX) / scale;
-  const sourceY = (cropTop - offsetY) / scale;
-  const sourceWidth = cropRect.width / scale;
-  const sourceHeight = cropRect.height / scale;
-
-  const x = clamp(Math.round(sourceX), 0, video.videoWidth - 1);
-  const y = clamp(Math.round(sourceY), 0, video.videoHeight - 1);
-  const right = clamp(Math.round(sourceX + sourceWidth), x + 1, video.videoWidth);
-  const bottom = clamp(Math.round(sourceY + sourceHeight), y + 1, video.videoHeight);
-
-  return {
-    x,
-    y,
-    width: right - x,
-    height: bottom - y
-  };
-}
-
-function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
 }
