@@ -1,12 +1,14 @@
 # AI 拍照答题
 
-<img src="public/icons/app-icon.svg" width="80" height="80" alt="Logo">
+<img src="public/icons/logo.png" width="80" height="80" alt="Logo">
 
-### 项目简介
+[English](README.md)
+
+---
 
 一款现代化的 AI 拍照答题工具，专为移动端浏览器设计。拍照或上传题目图片，即可获得由小米 MiMo API 提供的即时答案和解析。
 
-### 功能特点
+## 功能特点
 
 - **相机扫描**：实时相机访问，支持自动扫描定时器
 - **题库导入**：导入自定义题库（支持 JSON、CSV、TXT、MD 格式）
@@ -15,7 +17,7 @@
 - **模型设置**：配置 API Key、Base URL 和模型名称
 - **现代 UI**：简洁极简设计，毛玻璃效果
 
-### 界面截图
+## 界面截图
 
 <p align="center">
   <img src="public/screenshots/mobile_main.jpg" width="250" alt="手机主界面">
@@ -23,9 +25,9 @@
   <img src="public/screenshots/mobile_scanning.jpg" width="250" alt="手机扫描界面">
 </p>
 
-### 快速开始
+## 快速开始
 
-#### 本地开发
+### 本地开发
 
 ```bash
 npm install
@@ -34,7 +36,7 @@ npm run dev
 
 访问 `http://localhost:3000`。移动端相机需要 HTTPS。
 
-#### Docker 部署
+### Docker 部署
 
 ```bash
 # 复制环境配置文件
@@ -49,7 +51,7 @@ docker compose up -d --build
 
 访问 `https://localhost:8443`
 
-### 环境变量
+## 环境变量
 
 复制 `.env.example` 到 `.env.local`：
 
@@ -59,11 +61,11 @@ MIMO_BASE_URL=https://token-plan-sgp.xiaomimimo.com/v1
 MIMO_MODEL=mimo-v2.5
 ```
 
-### 题库格式
+## 题库格式
 
 支持多种格式：
 
-#### JSON
+### JSON
 ```json
 [
   {
@@ -74,13 +76,13 @@ MIMO_MODEL=mimo-v2.5
 ]
 ```
 
-#### CSV
+### CSV
 ```csv
 question,answer,explanation
 "1+1等于多少？","2","基础算术"
 ```
 
-#### TXT/MD
+### TXT/MD
 ```
 1. 1+1等于多少？
 A. 1
@@ -91,7 +93,7 @@ D. 4
 解析：基础算术
 ```
 
-### HTTPS 证书
+## HTTPS 证书
 
 本地 HTTPS 开发：
 
@@ -101,7 +103,7 @@ npm run dev:https
 
 手机浏览器访问时会提示证书不受信任，点击「高级」或「继续访问」即可，无需安装任何描述文件。
 
-### 技术栈
+## 技术栈
 
 - React 18
 - Vite
