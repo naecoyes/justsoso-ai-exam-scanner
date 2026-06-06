@@ -4,7 +4,7 @@ import { useLanguage } from "../lib/LanguageContext.jsx";
 
 const STORAGE_KEY = "question_banks";
 
-export default function QuestionBankManager() {
+export default function QuestionBankManager({ compact = false }) {
   const { t } = useLanguage();
   const [banks, setBanks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -127,6 +127,40 @@ export default function QuestionBankManager() {
   };
 
   const totalQuestions = banks.reduce((sum, b) => sum + b.count, 0);
+
+  if (compact) {
+    return (
+      <section className="rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm p-3 shadow-sm">
+        <div className="mb-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BookOpen className="h-4 w-4 text-violet-600" />
+            <span className="text-xs font-semibold text-slate-800">{t("myQuestionBank")}</span>
+          </div>
+          <button
+            onClick={handleUploadClick}
+            disabled={loading}
+            className="flex items-center gap-1 rounded-lg bg-violet-500 px-2 py-1 text-[10px] font-semibold text-white hover:bg-violet-600 disabled:opacity-50"
+          >
+            {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <FolderUp className="h-3 w-3" />}
+            {t("importBank")}
+          </button>
+          <input ref={fileRef} type="file" accept=".json,.csv,.txt,.md" className="hidden" onChange={handleFileChange} />
+        </div>
+        <div className="max-h-32 space-y-1 overflow-y-auto">
+          {banks.length === 0 ? (
+            <p className="text-center text-[10px] text-slate-400 py-2">{t("noBank")}</p>
+          ) : (
+            banks.slice(0, 5).map((bank) => (
+              <div key={bank.id} className="flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1">
+                <span className="truncate text-[10px] text-slate-600">{bank.name}</span>
+                <span className="text-[10px] text-slate-400">{bank.count}</span>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm p-5 shadow-sm">
