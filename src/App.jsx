@@ -193,48 +193,53 @@ export default function App() {
             />
           </div>
 
-          <div className="flex w-[55%] flex-col gap-3 overflow-y-auto border-l border-slate-200/60 bg-white/50 p-3">
-            <div className="rounded-xl border border-emerald-200/60 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 shadow-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-4 w-4 text-emerald-600" />
-                <span className="text-xs font-semibold text-emerald-800">{t("answer")}</span>
-                {isAnalyzing && (
-                  <span className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-amber-600">
+          <div className="flex w-[55%] flex-col gap-2 overflow-hidden border-l border-slate-200/60 bg-white/50 p-2">
+            <div className="rounded-lg border border-emerald-200/60 bg-gradient-to-r from-emerald-50 to-teal-50 px-3 py-2 shadow-sm">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="text-xs font-semibold text-emerald-800">{t("answer")}:</span>
+                {isAnalyzing ? (
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
                     <Clock3 className="h-3 w-3 animate-pulse" />
                     {t("analyzing")}
                   </span>
+                ) : result.answer ? (
+                  <span className="text-lg font-bold text-emerald-700">{result.answer}</span>
+                ) : (
+                  <span className="text-xs text-slate-400">-</span>
+                )}
+                {result.type && (
+                  <span className="ml-auto rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+                    {result.type}
+                  </span>
                 )}
               </div>
-              {result.answer ? (
-                <div>
-                  <p className="text-2xl font-bold text-emerald-700">{result.answer}</p>
-                  {result.type && (
-                    <span className="mt-1 inline-block rounded-md bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
-                      {result.type}
-                    </span>
-                  )}
+            </div>
+
+            <div className="flex flex-1 min-h-0 gap-2">
+              <div className="flex-1 rounded-lg border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col">
+                <div className="flex items-center gap-1.5 border-b border-slate-100 px-3 py-1.5">
+                  <Camera className="h-3.5 w-3.5 text-slate-500" />
+                  <h2 className="text-xs font-semibold text-slate-800">{t("question")}</h2>
                 </div>
-              ) : (
-                <p className="text-sm text-slate-400">{t("waitingForImage")}</p>
-              )}
-            </div>
-
-            <div className="rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
-              <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
-                <Camera className="h-4 w-4 text-slate-500" />
-                <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
+                <div className="flex-1 overflow-y-auto">
+                  <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
+                </div>
               </div>
-              <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
+
+              <div className="w-48 flex flex-col gap-2">
+                <QuestionBankManager compact />
+                <QuestionList compact />
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <QuestionBankManager compact />
-              <QuestionList compact />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
-              <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact />
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
+              </div>
+              <div className="flex-1">
+                <HistoryStrip items={history} onSelect={selectHistoryItem} onClear={handleClearHistory} compact />
+              </div>
             </div>
           </div>
         </div>
