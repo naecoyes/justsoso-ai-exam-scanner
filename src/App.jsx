@@ -95,7 +95,7 @@ export default function App() {
       });
 
       setResult(nextResult);
-      setColorIndex(prev => (prev + 1) % ANSWER_COLORS.length);
+      setColorIndex(prev => (prev + 1) % ANSWER_STYLES.length);
       const nextHistory = await addHistoryItem({
         createdAt: Date.now(),
         thumbnail: payload.thumbnailDataUrl || payload.dataUrl,
@@ -152,24 +152,23 @@ export default function App() {
   };
 
   if (isLandscape) {
-    const color = ANSWER_STYLES[colorIndex];
     return (
       <main className="h-screen overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 text-slate-950">
         <div className="flex h-full">
-          <div className="w-[45%] flex flex-col p-3 gap-3">
-            <header className="flex items-center justify-between rounded-xl bg-white/80 border border-slate-200/60 px-4 py-2 shadow-sm">
+          <div className="flex w-[45%] flex-col gap-3 p-3">
+            <header className="flex items-center justify-between rounded-xl border border-slate-200/60 bg-white/80 backdrop-blur-sm px-3 py-2 shadow-sm">
               <div className="flex items-center gap-2">
-                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
-                  <BookOpen className="h-4 w-4 text-white" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600">
+                  <BookOpen className="h-3.5 w-3.5 text-white" />
                 </div>
-                <h1 className="text-sm font-bold text-slate-900">{t("appTitle")}</h1>
+                <h1 className="text-base font-bold text-slate-900">{t("appTitle")}</h1>
               </div>
-              <div className="flex items-center gap-2">
-                <button onClick={toggleLanguage} className="text-xs text-slate-600 border border-slate-200 rounded-lg px-2 py-1 hover:bg-slate-50">
-                  <Globe className="h-3 w-3 inline mr-1" />
+              <div className="flex items-center gap-1.5">
+                <button onClick={toggleLanguage} className="rounded-lg border border-slate-200 px-2 py-1 text-[10px] text-slate-600 hover:bg-slate-50">
+                  <Globe className="h-3 w-3 inline mr-0.5" />
                   {language === "zh" ? "EN" : "中"}
                 </button>
-                <div className="text-xs font-semibold text-teal-700 bg-teal-50 rounded-lg px-2 py-1 flex items-center gap-1">
+                <div className="flex items-center gap-1 rounded-lg bg-teal-50 px-2 py-1 text-[10px] font-semibold text-teal-700">
                   <Sparkles className="h-3 w-3" />
                   MiMo
                 </div>
@@ -188,8 +187,8 @@ export default function App() {
             </div>
 
             {error && (
-              <div className="flex items-start gap-2 rounded-xl bg-rose-50/80 border border-rose-200/60 px-3 py-2 text-xs text-rose-700">
-                <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2 rounded-xl border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs text-rose-700">
+                <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>{error}</span>
               </div>
             )}
@@ -204,47 +203,47 @@ export default function App() {
             />
           </div>
 
-          <div className="w-[55%] flex flex-col p-3 gap-3 overflow-hidden border-l border-slate-200/60 bg-white/50">
-            <div className={`rounded-xl border ${color.border} ${color.bg} px-4 py-3 shadow-sm transition-colors duration-300`}>
+          <div className="flex w-[55%] flex-col gap-2 overflow-hidden border-l border-slate-200/60 bg-white/50 p-2">
+            <div className={`rounded-lg border ${ANSWER_STYLES[colorIndex].border} ${ANSWER_STYLES[colorIndex].bg} px-3 py-2 shadow-sm transition-colors duration-300`}>
               <div className="flex items-center gap-2">
-                <Sparkles className={`h-4 w-4 ${color.icon}`} />
-                <span className={`text-sm font-semibold ${color.label}`}>{t("answer")}:</span>
+                <Sparkles className={`h-3.5 w-3.5 ${ANSWER_STYLES[colorIndex].icon}`} />
+                <span className={`text-xs font-semibold ${ANSWER_STYLES[colorIndex].label}`}>{t("answer")}:</span>
                 {isAnalyzing ? (
                   <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
-                    <Clock3 className="h-3.5 w-3.5 animate-pulse" />
+                    <Clock3 className="h-3 w-3 animate-pulse" />
                     {t("analyzing")}
                   </span>
                 ) : result.answer ? (
-                  <span className={`text-xl font-bold ${color.answer}`}>{result.answer}</span>
+                  <span className={`text-lg font-bold ${ANSWER_STYLES[colorIndex].answer}`}>{result.answer}</span>
                 ) : (
-                  <span className="text-sm text-slate-400">-</span>
+                  <span className="text-xs text-slate-400">-</span>
                 )}
                 {result.type && (
-                  <span className={`ml-auto rounded-lg ${color.badge} px-2 py-0.5 text-xs font-semibold`}>
+                  <span className={`ml-auto rounded ${ANSWER_STYLES[colorIndex].badge} px-1.5 py-0.5 text-[10px] font-semibold`}>
                     {result.type}
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="flex-1 flex gap-3 min-h-0">
-              <div className="flex-1 rounded-xl bg-white/80 border border-slate-200/60 shadow-sm overflow-hidden flex flex-col">
-                <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-                  <Camera className="h-4 w-4 text-slate-500" />
-                  <h2 className="text-sm font-semibold text-slate-800">{t("question")}</h2>
+            <div className="flex flex-1 min-h-0 gap-2">
+              <div className="flex-1 rounded-lg border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col">
+                <div className="flex items-center gap-1.5 border-b border-slate-100 px-3 py-1.5">
+                  <Camera className="h-3.5 w-3.5 text-slate-500" />
+                  <h2 className="text-xs font-semibold text-slate-800">{t("question")}</h2>
                 </div>
                 <div className="flex-1 overflow-y-auto">
                   <ResultPanel result={result} preview={preview} isAnalyzing={isAnalyzing} compact />
                 </div>
               </div>
 
-              <div className="w-48 flex flex-col gap-3">
+              <div className="w-48 flex flex-col gap-2">
                 <QuestionBankManager compact />
                 <QuestionList compact />
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <div className="flex-1">
                 <SettingsPanel quickMode={quickMode} onQuickModeChange={handleQuickModeChange} compact />
               </div>
