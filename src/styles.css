@@ -34,14 +34,27 @@ input {
   height: clamp(220px, 34vh, 300px);
 }
 
+.camera-stage.landscape-mode {
+  height: clamp(200px, 45vh, 400px);
+}
+
 .landscape-viewfinder {
   aspect-ratio: 21 / 9;
   max-height: 58%;
 }
 
+.portrait-viewfinder {
+  aspect-ratio: 9 / 16;
+  max-height: 75%;
+}
+
 @media (min-width: 768px) {
   .camera-stage {
     height: 420px;
+  }
+  
+  .camera-stage.landscape-mode {
+    height: 480px;
   }
 }
 
@@ -50,7 +63,17 @@ input {
     height: clamp(210px, 30vh, 260px);
   }
 
+  .camera-stage.landscape-mode {
+    height: clamp(180px, 40vh, 320px);
+  }
+
   .landscape-viewfinder {
     width: 92%;
+  }
+}
+
+@media (orientation: landscape) {
+  .camera-stage {
+    height: clamp(200px, 60vh, 450px);
   }
 }

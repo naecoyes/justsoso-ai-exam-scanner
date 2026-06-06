@@ -1,7 +1,7 @@
-const MAX_EDGE = 1024;
-const THUMB_EDGE = 260;
+const MAX_EDGE = 768;
+const THUMB_EDGE = 180;
 const MIME_TYPE = "image/jpeg";
-const QUALITY = 0.8;
+const QUALITY = 0.75;
 
 export async function captureVideoFrame(video, cropElement) {
   if (!video || !video.videoWidth || !video.videoHeight) {
@@ -12,7 +12,7 @@ export async function captureVideoFrame(video, cropElement) {
   const canvas = document.createElement("canvas");
   canvas.width = crop.width;
   canvas.height = crop.height;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext("2d", { willReadFrequently: false });
   context.drawImage(
     video,
     crop.x,
@@ -37,7 +37,7 @@ export async function fileToImagePayload(file) {
   const canvas = document.createElement("canvas");
   canvas.width = bitmap.width;
   canvas.height = bitmap.height;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext("2d", { willReadFrequently: false });
   context.drawImage(bitmap, 0, 0);
 
   return canvasToPayload(canvas, "upload");

@@ -14,6 +14,7 @@ const translations = {
     stop: "停止",
     uploadImage: "上传图片",
     viewfinder: "横屏取景框",
+    portraitViewfinder: "竖屏取景框",
     
     // Result
     waitingForImage: "等待图片输入",
@@ -83,6 +84,7 @@ const translations = {
     stop: "Stop",
     uploadImage: "Upload Image",
     viewfinder: "Landscape Viewfinder",
+    portraitViewfinder: "Portrait Viewfinder",
     
     // Result
     waitingForImage: "Waiting for image",

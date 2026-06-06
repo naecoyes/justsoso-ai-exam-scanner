@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Camera, FolderUp, Play, Square } from "lucide-react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useCallback } from "react";
+import { Camera, FolderUp, Play, Square, RotateCcw } from "lucide-react";
 import { captureVideoFrame, fileToImagePayload } from "../lib/imageCapture.js";
 import { useLanguage } from "../lib/LanguageContext.jsx";
 
@@ -14,9 +14,23 @@ const CameraScanner = forwardRef(function CameraScanner(
   const streamRef = useRef(null);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [isLandscape, setIsLandscape] = useState(false);
   const environmentMessage = getCameraEnvironmentMessage();
 
-  const stopCamera = () => {
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight);
+    };
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+    return () => {
+      window.removeEventListener("resize", checkOrientation);
+      window.removeEventListener("orientationchange", checkOrientation);
+    };
+  }, []);
+
+  const stopCamera = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => track.stop());
     streamRef.current = null;
     if (videoRef.current) {
@@ -24,7 +38,7 @@ const CameraScanner = forwardRef(function CameraScanner(
     }
     setStatus("idle");
     onReadyChange(false);
-  };
+  }, [onReadyChange]);
 
   useEffect(() => {
     return () => {
@@ -58,15 +72,16 @@ const CameraScanner = forwardRef(function CameraScanner(
         throw createCameraError("UnsupportedCameraError", "Camera API not available in current browser.");
       }
 
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const constraints = {
         video: {
           facingMode: { ideal: "environment" },
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 }
         },
         audio: false
-      });
+      };
 
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -108,7 +123,7 @@ const CameraScanner = forwardRef(function CameraScanner(
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-sm">
-      <div className="camera-stage relative bg-slate-950">
+      <div className={`camera-stage relative bg-slate-950 ${isLandscape ? "landscape-mode" : ""}`}>
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
@@ -121,7 +136,11 @@ const CameraScanner = forwardRef(function CameraScanner(
             <div className="absolute inset-0 bg-slate-950/35" />
             <div
               ref={frameRef}
-              className="landscape-viewfinder absolute left-1/2 top-1/2 w-[90%] max-w-4xl -translate-x-1/2 -translate-y-1/2"
+              className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                isLandscape 
+                  ? "w-[92%] max-w-5xl landscape-viewfinder" 
+                  : "w-[90%] max-w-4xl portrait-viewfinder"
+              }`}
             >
               <div className="absolute inset-0 rounded-xl border border-white/70 shadow-[0_0_0_9999px_rgba(2,6,23,0.42)]" />
               <div className="absolute left-0 top-0 h-8 w-8 rounded-tl-xl border-l-4 border-t-4 border-amber-400" />
@@ -130,7 +149,7 @@ const CameraScanner = forwardRef(function CameraScanner(
               <div className="absolute bottom-0 right-0 h-8 w-8 rounded-br-xl border-b-4 border-r-4 border-amber-400" />
               <div className="absolute left-4 right-4 top-1/2 border-t border-dashed border-white/40" />
               <div className="absolute left-1/2 top-3 -translate-x-1/2 rounded-lg bg-slate-950/70 px-2.5 py-1 text-xs font-semibold text-white">
-                {t("viewfinder")}
+                {isLandscape ? t("viewfinder") : t("portraitViewfinder")}
               </div>
             </div>
           </div>
