@@ -19,12 +19,12 @@ const INITIAL_RESULT = {
   references: []
 };
 
-const ANSWER_COLORS = [
-  { bg: "from-emerald-50 to-teal-50", border: "border-emerald-200/60", text: "text-emerald-700", badge: "bg-emerald-100 text-emerald-700" },
-  { bg: "from-blue-50 to-indigo-50", border: "border-blue-200/60", text: "text-blue-700", badge: "bg-blue-100 text-blue-700" },
-  { bg: "from-violet-50 to-purple-50", border: "border-violet-200/60", text: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
-  { bg: "from-amber-50 to-orange-50", border: "border-amber-200/60", text: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
-  { bg: "from-rose-50 to-pink-50", border: "border-rose-200/60", text: "text-rose-700", badge: "bg-rose-100 text-rose-700" },
+const ANSWER_STYLES = [
+  { border: "border-emerald-200/60", bg: "bg-gradient-to-r from-emerald-50 to-teal-50", icon: "text-emerald-600", label: "text-emerald-800", answer: "text-emerald-700", badge: "bg-emerald-100 text-emerald-700" },
+  { border: "border-blue-200/60", bg: "bg-gradient-to-r from-blue-50 to-indigo-50", icon: "text-blue-600", label: "text-blue-800", answer: "text-blue-700", badge: "bg-blue-100 text-blue-700" },
+  { border: "border-violet-200/60", bg: "bg-gradient-to-r from-violet-50 to-purple-50", icon: "text-violet-600", label: "text-violet-800", answer: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
+  { border: "border-amber-200/60", bg: "bg-gradient-to-r from-amber-50 to-orange-50", icon: "text-amber-600", label: "text-amber-800", answer: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
+  { border: "border-rose-200/60", bg: "bg-gradient-to-r from-rose-50 to-pink-50", icon: "text-rose-600", label: "text-rose-800", answer: "text-rose-700", badge: "bg-rose-100 text-rose-700" },
 ];
 
 export default function App() {
@@ -204,22 +204,22 @@ export default function App() {
           </div>
 
           <div className="flex w-[55%] flex-col gap-2 overflow-hidden border-l border-slate-200/60 bg-white/50 p-2">
-            <div className={`rounded-lg border ${ANSWER_COLORS[colorIndex].border} bg-gradient-to-r ${ANSWER_COLORS[colorIndex].bg} px-3 py-2 shadow-sm transition-colors duration-300`}>
+            <div className={`rounded-lg border ${ANSWER_STYLES[colorIndex].border} ${ANSWER_STYLES[colorIndex].bg} px-3 py-2 shadow-sm transition-colors duration-300`}>
               <div className="flex items-center gap-2">
-                <Sparkles className={`h-3.5 w-3.5 ${ANSWER_COLORS[colorIndex].text.replace('700', '600')}`} />
-                <span className={`text-xs font-semibold ${ANSWER_COLORS[colorIndex].text.replace('700', '800')}`}>{t("answer")}:</span>
+                <Sparkles className={`h-3.5 w-3.5 ${ANSWER_STYLES[colorIndex].icon}`} />
+                <span className={`text-xs font-semibold ${ANSWER_STYLES[colorIndex].label}`}>{t("answer")}:</span>
                 {isAnalyzing ? (
                   <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
                     <Clock3 className="h-3 w-3 animate-pulse" />
                     {t("analyzing")}
                   </span>
                 ) : result.answer ? (
-                  <span className={`text-lg font-bold ${ANSWER_COLORS[colorIndex].text}`}>{result.answer}</span>
+                  <span className={`text-lg font-bold ${ANSWER_STYLES[colorIndex].answer}`}>{result.answer}</span>
                 ) : (
                   <span className="text-xs text-slate-400">-</span>
                 )}
                 {result.type && (
-                  <span className={`ml-auto rounded ${ANSWER_COLORS[colorIndex].badge} px-1.5 py-0.5 text-[10px] font-semibold`}>
+                  <span className={`ml-auto rounded ${ANSWER_STYLES[colorIndex].badge} px-1.5 py-0.5 text-[10px] font-semibold`}>
                     {result.type}
                   </span>
                 )}
