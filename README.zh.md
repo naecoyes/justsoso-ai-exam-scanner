@@ -1,8 +1,14 @@
 # AI 拍照答题
 
-<img src="public/icons/logo.png" width="150" height="150" alt="Logo">
+<p align="center">
+  <img src="public/icons/logo.png" width="280" height="280" alt="AI 拍照答题 Logo">
+</p>
 
-[English](README.md)
+<h1 align="center">AI 拍照答题</h1>
+
+<p align="center">
+  <a href="README.md">English</a>
+</p>
 
 ---
 
@@ -19,10 +25,18 @@
 
 ## 界面截图
 
+### 横版 / 桌面视图
+
 <p align="center">
-  <img src="public/screenshots/mobile_main.jpg" width="250" alt="手机主界面">
-  &nbsp;&nbsp;
-  <img src="public/screenshots/mobile_scanning.jpg" width="250" alt="手机扫描界面">
+  <img src="public/screenshots/desktop_landscape.png" width="900" alt="横版视图 - 相机和答案左右分栏">
+</p>
+
+### 手机视图（竖屏）
+
+<p align="center">
+  <img src="public/screenshots/mobile_main.jpg" width="280" alt="手机主界面">
+  &nbsp;&nbsp;&nbsp;
+  <img src="public/screenshots/mobile_scanning.jpg" width="280" alt="手机扫描界面">
 </p>
 
 ## 快速开始

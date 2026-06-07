@@ -1,8 +1,14 @@
 # AI Exam Scanner
 
-<img src="public/icons/logo.png" width="150" height="150" alt="Logo">
+<p align="center">
+  <img src="public/icons/logo.png" width="280" height="280" alt="AI Exam Scanner Logo">
+</p>
 
-[中文文档](README.zh.md)
+<h1 align="center">AI Exam Scanner</h1>
+
+<p align="center">
+  <a href="README.zh.md">中文文档</a>
+</p>
 
 ---
 
@@ -19,10 +25,18 @@ A modern AI-powered exam scanning tool designed for mobile browsers. Capture or 
 
 ## Screenshots
 
+### Landscape / Desktop View
+
 <p align="center">
-  <img src="public/screenshots/mobile_main.jpg" width="250" alt="Mobile Main">
-  &nbsp;&nbsp;
-  <img src="public/screenshots/mobile_scanning.jpg" width="250" alt="Mobile Scanning">
+  <img src="public/screenshots/desktop_landscape.png" width="900" alt="Landscape View - Split layout with camera and answer side by side">
+</p>
+
+### Mobile View (Portrait)
+
+<p align="center">
+  <img src="public/screenshots/mobile_main.jpg" width="280" alt="Mobile Main Interface">
+  &nbsp;&nbsp;&nbsp;
+  <img src="public/screenshots/mobile_scanning.jpg" width="280" alt="Mobile Scanning">
 </p>
 
 ## Quick Start
